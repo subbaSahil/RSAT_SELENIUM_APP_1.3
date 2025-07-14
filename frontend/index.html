@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>RSAT XML to Selenium Script</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #555;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    #statusMessage {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    /* textarea {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+    } */
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #4a90e2;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #357ABD;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+  .file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .file-upload-label {
+    display: inline-block;
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+  }
+
+  .file-upload-label:hover {
+    background-color: #357ABD;
+  }
+
+  #fileInput {
+    display: none;
+  }
+
+  .file-name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    font-style: italic;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>RSAT XML to Selenium Script</h1>
+    <h2>Upload your RSAT XML file to generate a Python script</h2>
+
+    <div class="file-upload-wrapper">
+      <label for="fileInput" class="file-upload-label">📁 Choose File(s)</label>
+      <input class="file_upload" type="file" id="fileInput" multiple />
+      <div id="fileName" class="file-name">No file chosen</div>
+    </div>
+    <div class="button-group">
+      <button onclick="runPythonScript()">Generate Script</button>
+      <button onclick="downloadScript()">Download Script</button>
+    </div>
+    <!-- <textarea id="fileContent" readonly placeholder="Generated Selenium scripts or errors will appear here..."></textarea> -->
+    <div id="statusMessage" class="status"></div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const fileNameDisplay = document.getElementById("fileName");
+
+    fileInput.addEventListener("change", () => {
+      const files = fileInput.files;
+      if (files.length === 0) {
+        fileNameDisplay.textContent = "No file chosen";
+      } else if (files.length === 1) {
+        fileNameDisplay.textContent = files[0].name;
+      } else {
+        fileNameDisplay.textContent = `${files.length} files selected`;
+      }
+    });
+    async function runPythonScript() {
+      const input = document.getElementById('fileInput');
+      // const textarea = document.getElementById('fileContent');
+      const status = document.getElementById('statusMessage');
+
+      if (!input.files.length) {
+        alert("Please select at least one file.");
+        return;
+      }
+
+      // Initially show 'Processing' and hide textarea
+      status.innerHTML = "";
+      // textarea.style.display = "none";
+
+      for (const file of input.files) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+          const response = await fetch('http://localhost:5010/run-script', {
+            method: "POST",
+            body: formData
+          });
+
+          const data = await response.json();
+          if (typeof data === 'object' && data.scripts) {
+            const output = data.scripts[file.name];
+
+            if (output && !output.startsWith("Error")) {
+              status.innerHTML += `<div style="color:green;">✔️ ${file.name} - Script generated successfully.</div>`;
+            } else {
+              status.innerHTML += `<div style="color:orange;">⚠️ ${file.name} - Failed: ${output}</div>`;
+            }
+          } else {
+            status.innerHTML += `<div style="color:red;">❌ ${file.name} - Unexpected response format</div>`;
+          }
+        } catch (err) {
+          console.error(err);
+          status.innerHTML += `<div style="color:red;">❌ ${file.name} - Connection error</div>`;
+        }
+      }
+    }
+
+
+    async function downloadScript() {
+      try {
+        const response = await fetch('http://localhost:5010/download-all-scripts');
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'all_scripts.zip';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      } catch (err) {
+        alert("Failed to download scripts");
+        console.error(err);
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

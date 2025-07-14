@@ -1,0 +1,38 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.1, pluggy-1.6.0 -- C:\Users\SahilSubba\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.12.10', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '8.4.1', 'pluggy': '1.6.0'}, 'Plugins': {'allure-pytest': '2.14.3', 'anyio': '4.9.0', 'html': '4.1.1', 'metadata': '3.1.1', 'rerunfailures': '15.1', 'xdist': '3.7.0'}, 'JAVA_HOME': 'C:\\Program Files\\Java\\jdk-17'}
+rootdir: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2
+configfile: pytest.ini
+testpaths: tests
+plugins: allure-pytest-2.14.3, anyio-4.9.0, html-4.1.1, metadata-3.1.1, rerunfailures-15.1, xdist-3.7.0
+collecting ... collected 1 item / 2 errors
+
+=================================== ERRORS ====================================
+______________ ERROR collecting tests/script_data_test_1_test.py ______________
+tests\script_data_test_1_test.py:11: in <module>
+    test_data = read_all_test_data("Data\\script_data_test_1_test_data.xlsx", "Sheet1")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Utils\getExcelData.py:8: in read_all_test_data
+    sheet = wb[sheetname]
+            ^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\openpyxl\workbook\workbook.py:287: in __getitem__
+    raise KeyError("Worksheet {0} does not exist.".format(key))
+E   KeyError: 'Worksheet Sheet1 does not exist.'
+______________ ERROR collecting tests/script_data_test_3_test.py ______________
+tests\script_data_test_3_test.py:11: in <module>
+    test_data = read_all_test_data("Data\\script_data_test_1_test_data.xlsx", "Sheet1")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Utils\getExcelData.py:8: in read_all_test_data
+    sheet = wb[sheetname]
+            ^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\openpyxl\workbook\workbook.py:287: in __getitem__
+    raise KeyError("Worksheet {0} does not exist.".format(key))
+E   KeyError: 'Worksheet Sheet1 does not exist.'
+- generated xml file: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2\reports\report.xml -
+- Generated html report: file:///C:/Users/SahilSubba/Desktop/javascript/RsatA_project/build-1.2/reports/report.html -
+=========================== short test summary info ===========================
+ERROR tests/script_data_test_1_test.py - KeyError: 'Worksheet Sheet1 does not...
+ERROR tests/script_data_test_3_test.py - KeyError: 'Worksheet Sheet1 does not...
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+============================== 2 errors in 1.06s ==============================

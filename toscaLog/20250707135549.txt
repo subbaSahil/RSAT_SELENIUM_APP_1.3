@@ -1,0 +1,15 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.1, pluggy-1.6.0 -- C:\Users\SahilSubba\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.12.10', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '8.4.1', 'pluggy': '1.6.0'}, 'Plugins': {'allure-pytest': '2.14.3', 'anyio': '4.9.0', 'html': '4.1.1', 'metadata': '3.1.1', 'rerunfailures': '15.1', 'xdist': '3.7.0'}, 'JAVA_HOME': 'C:\\Program Files\\Java\\jdk-17'}
+rootdir: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2
+configfile: pytest.ini
+testpaths: tests
+plugins: allure-pytest-2.14.3, anyio-4.9.0, html-4.1.1, metadata-3.1.1, rerunfailures-15.1, xdist-3.7.0
+collecting ... collected 1 item
+
+tests/script_data_driven_invoice_test.py::test PASSED                    [100%]
+
+- generated xml file: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2\reports\report.xml -
+- Generated html report: file:///C:/Users/SahilSubba/Desktop/javascript/RsatA_project/build-1.2/reports/report.html -
+============================= 1 passed in 59.87s ==============================

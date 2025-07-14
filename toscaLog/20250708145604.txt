@@ -1,0 +1,108 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.1, pluggy-1.6.0 -- C:\Users\SahilSubba\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.12.10', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '8.4.1', 'pluggy': '1.6.0'}, 'Plugins': {'allure-pytest': '2.14.3', 'anyio': '4.9.0', 'html': '4.1.1', 'metadata': '3.1.1', 'rerunfailures': '15.1', 'xdist': '3.7.0'}, 'JAVA_HOME': 'C:\\Program Files\\Java\\jdk-17'}
+rootdir: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2
+configfile: pytest.ini
+testpaths: tests
+plugins: allure-pytest-2.14.3, anyio-4.9.0, html-4.1.1, metadata-3.1.1, rerunfailures-15.1, xdist-3.7.0
+collecting ... collected 1 item / 2 errors
+
+=================================== ERRORS ====================================
+______________ ERROR collecting tests/script_data_test_1_test.py ______________
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\nodes.py:110: in _create
+    return super().__call__(*k, **kw)  # type: ignore[no-any-return,misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:1616: in __init__
+    fixtureinfo = fm.getfixtureinfo(self, self.obj, self.cls)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1571: in getfixtureinfo
+    direct_parametrize_args = _get_direct_parametrize_args(node)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1486: in _get_direct_parametrize_args
+    p_argnames, _ = ParameterSet._parse_parametrize_args(
+E   TypeError: ParameterSet._parse_parametrize_args() missing 2 required positional arguments: 'argnames' and 'argvalues'
+
+During handling of the above exception, another exception occurred:
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:240: in pytest_pycollect_makeitem
+    return list(collector._genfunctions(name, obj))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:448: in _genfunctions
+    definition = FunctionDefinition.from_parent(self, name=name, callobj=funcobj)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:1625: in from_parent
+    return super().from_parent(parent=parent, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\nodes.py:233: in from_parent
+    return cls._create(parent=parent, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\nodes.py:125: in _create
+    return super().__call__(*k, **known_kw)  # type: ignore[no-any-return,misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:1616: in __init__
+    fixtureinfo = fm.getfixtureinfo(self, self.obj, self.cls)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1571: in getfixtureinfo
+    direct_parametrize_args = _get_direct_parametrize_args(node)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1486: in _get_direct_parametrize_args
+    p_argnames, _ = ParameterSet._parse_parametrize_args(
+E   TypeError: ParameterSet._parse_parametrize_args() missing 2 required positional arguments: 'argnames' and 'argvalues'
+______________ ERROR collecting tests/script_data_test_3_test.py ______________
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\nodes.py:110: in _create
+    return super().__call__(*k, **kw)  # type: ignore[no-any-return,misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:1616: in __init__
+    fixtureinfo = fm.getfixtureinfo(self, self.obj, self.cls)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1571: in getfixtureinfo
+    direct_parametrize_args = _get_direct_parametrize_args(node)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1486: in _get_direct_parametrize_args
+    p_argnames, _ = ParameterSet._parse_parametrize_args(
+E   TypeError: ParameterSet._parse_parametrize_args() missing 2 required positional arguments: 'argnames' and 'argvalues'
+
+During handling of the above exception, another exception occurred:
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:240: in pytest_pycollect_makeitem
+    return list(collector._genfunctions(name, obj))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:448: in _genfunctions
+    definition = FunctionDefinition.from_parent(self, name=name, callobj=funcobj)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:1625: in from_parent
+    return super().from_parent(parent=parent, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\nodes.py:233: in from_parent
+    return cls._create(parent=parent, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\nodes.py:125: in _create
+    return super().__call__(*k, **known_kw)  # type: ignore[no-any-return,misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\python.py:1616: in __init__
+    fixtureinfo = fm.getfixtureinfo(self, self.obj, self.cls)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1571: in getfixtureinfo
+    direct_parametrize_args = _get_direct_parametrize_args(node)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\fixtures.py:1486: in _get_direct_parametrize_args
+    p_argnames, _ = ParameterSet._parse_parametrize_args(
+E   TypeError: ParameterSet._parse_parametrize_args() missing 2 required positional arguments: 'argnames' and 'argvalues'
+- generated xml file: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2\reports\report.xml -
+- Generated html report: file:///C:/Users/SahilSubba/Desktop/javascript/RsatA_project/build-1.2/reports/report.html -
+=========================== short test summary info ===========================
+ERROR tests/script_data_test_1_test.py - TypeError: ParameterSet._parse_param...
+ERROR tests/script_data_test_3_test.py - TypeError: ParameterSet._parse_param...
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+============================== 2 errors in 1.33s ==============================

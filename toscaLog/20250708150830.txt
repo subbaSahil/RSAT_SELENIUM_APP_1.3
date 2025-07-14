@@ -1,0 +1,1044 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.1, pluggy-1.6.0 -- C:\Users\SahilSubba\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.12.10', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '8.4.1', 'pluggy': '1.6.0'}, 'Plugins': {'allure-pytest': '2.14.3', 'anyio': '4.9.0', 'html': '4.1.1', 'metadata': '3.1.1', 'rerunfailures': '15.1', 'xdist': '3.7.0'}, 'JAVA_HOME': 'C:\\Program Files\\Java\\jdk-17'}
+rootdir: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2
+configfile: pytest.ini
+testpaths: tests
+plugins: allure-pytest-2.14.3, anyio-4.9.0, html-4.1.1, metadata-3.1.1, rerunfailures-15.1, xdist-3.7.0
+collecting ... collected 4 items
+
+tests/script_data_test_1_test.py::test[data0] FAILED                     [ 25%]
+tests/script_data_test_1_test.py::test[data1] FAILED                     [ 50%]
+tests/script_data_test_2_test.py::test FAILED                            [ 75%]
+tests/script_data_test_3_test.py::test[data0] FAILED                     [100%]
+
+================================== FAILURES ===================================
+_________________________________ test[data0] _________________________________
+
+data = {'Description/GroupDescription': 'Demo', 'Dimension value/GroupValue': '10'}
+
+    @pytest.mark.ui
+    @pytest.mark.parametrize("data", test_data)
+    def test(data):
+        base = BaseTest("user1",incognito=True)
+        driver = base.driver
+        actions = base.actions
+        recorder=ScreenRecorder()
+        try:
+            recorder.start()
+            dimension = data['Dimension value/GroupValue']
+            description = data['Description/GroupDescription']
+            Interactions.wait_and_click(driver, By.XPATH, "//div[@aria-label='Modules']")
+    # Clicking navigation: General ledger
+            nav1 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='General ledger']")
+    # Clicking navigation: Chart of accounts
+            nav2 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Chart of accounts']")
+    # Clicking navigation: Dimensions
+            nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Dimensions']")
+    # Clicking navigation: Financial dimensions
+            base.steps_count +=1
+            nav4 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Financial dimensions']",base.steps_count, "Go to General ledger > Chart of accounts > Dimensions > Financial dimensions.")
+            time.sleep(3)
+            Interactions.assert_navigation(driver,nav1, nav2, nav3, nav4)
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='Close']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='Close']",base.steps_count, "Click Close.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='Close']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='Close']",base.steps_count,"Click Close.")
+    # Inputting into: QuickFilter
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'QuickFilter')]")):
+                locator=Interactions.get_locator(driver, By.XPATH, "//input[contains(@name,'QuickFilter')]")
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, locator, "cargo",base.steps_count,"Use the Quick Filter to find records. For example, filter on the Dimension name field with a value of 'cargo'.")
+                Interactions.press_enter(driver, By.XPATH, locator)
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'')]")):
+                locator=Interactions.get_locator(driver, By.XPATH, "//input[contains(@aria-label,'')]")
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, locator, "cargo",base.steps_count,"Use the Quick Filter to find records. For example, filter on the Dimension name field with a value of 'cargo'.")
+                Interactions.press_enter(driver, By.XPATH, locator)
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='DimensionValueDetails']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='DimensionValueDetails']",base.steps_count,"Click Dimension values.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='DimensionValueDetails']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='DimensionValueDetails']",base.steps_count,"Click Dimension values.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@aria-label='Dimension values']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@aria-label='Dimension values']",base.steps_count,"Click Dimension values.")
+            else:
+                Interactions.wait_and_click(driver, By.XPATH, "//div[@data-dyn-controlname='ActionPane']//div[@class='appBar-toolbar']//div[@data-dyn-role='OverflowButton']")
+                if(Interactions.check_element_exist(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@name='DimensionValueDetails']")):
+                    Interactions.wait_and_click(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@name='DimensionValueDetails']",base.steps_count,"Click Dimension values.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@aria-label='Dimension values']")):
+                    Interactions.wait_and_click(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@aria-label='Dimension values']",base.steps_count,"Click Dimension values.")
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']",base.steps_count, "Click New.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedNewButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedNewButton']",base.steps_count,"Click New.")
+            base.steps_count +=1
+    # Inputting into: GroupValue
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'GroupValue')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Dimension value')]") ):
+                #clicking inside grid: GroupValue
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'GroupValue')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'GroupValue')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'GroupValue')])[1]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Dimension value')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Dimension value')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Dimension value')])[1]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'GroupValue')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'GroupValue')]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Dimension value')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Dimension value')]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+            Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+    # Inputting into: GroupDescription
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'GroupDescription')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Description')]") ):
+                #clicking inside grid: GroupDescription
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'GroupDescription')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'GroupDescription')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'GroupDescription')])[1]", description,base.steps_count,"In the Description field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Description')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Description')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Description')])[1]", description,base.steps_count,"In the Description field, type a value.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'GroupDescription')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'GroupDescription')]", description,base.steps_count,"In the Description field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Description')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Description')]", description,base.steps_count,"In the Description field, type a value.")
+            Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+            base.steps_count +=1
+            Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedSaveButton']",base.steps_count, "Click Save.")
+            assert True
+        except Exception as e:
+            base.test_passed = False
+>           raise e
+
+tests\script_data_test_1_test.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\script_data_test_1_test.py:36: in test
+    Interactions.assert_navigation(driver,nav1, nav2, nav3, nav4)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+driver = <selenium.webdriver.chrome.webdriver.WebDriver (session="922c9de1003599e83f0366b284992684")>
+expected_items = ('General ledger', 'Chart of accounts', 'Dimensions', 'Financial dimensions')
+navigation_xpath = "//ol[@class='navigationBar-crumbList']//li"
+navigated_items = []
+
+    def assert_navigation(driver, *expected_items):
+        navigation_xpath = "//ol[@class='navigationBar-crumbList']//li"
+        navigated_items = driver.find_elements(By.XPATH, navigation_xpath)
+    
+        navigated_items_texts = [item.text.strip() for item in navigated_items]
+        print(f"Navigation found: {navigated_items_texts}")
+    
+        expected_path = list(expected_items)
+        actual_path = navigated_items_texts[-len(expected_path):]
+    
+        if len(navigated_items_texts) < len(expected_path):
+            take_screenshot_on_failure(driver)
+>           raise AssertionError(f"Not enough navigation items found.\nExpected at least {len(expected_path)}, got {len(navigated_items_texts)}\nNavigation: {navigated_items_texts}")
+E           AssertionError: Not enough navigation items found.
+E           Expected at least 4, got 0
+E           Navigation: []
+
+Utils\Interactions.py:720: AssertionError
+---------------------------- Captured stdout call -----------------------------
+Login Successful as user1\n\u2705 Clicked element with base_xpath: //div[@aria-label='Modules']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='General ledger']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='Dimensions']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='Financial dimensions']\nNavigation found: []\n\U0001f4f8 Screenshot saved: reports/screens\\script_data_test_1_test_20250708_150033.png\n\u274c Test case failed\n\U0001f4f8 Screenshot saved: reports/screens\\script_data_test_1_test_20250708_150034.png\n\U0001f5d1\ufe0f Discarded failed test recording.
+_________________________________ test[data1] _________________________________
+
+self = <urllib3.connection.HTTPConnection object at 0x000002CC7FCFA000>
+
+    def _new_conn(self) -> socket.socket:
+        """Establish a socket connection and set nodelay settings on it.
+    
+        :return: New socket connection.
+        """
+        try:
+>           sock = connection.create_connection(
+                (self._dns_host, self.port),
+                self.timeout,
+                source_address=self.source_address,
+                socket_options=self.socket_options,
+            )
+
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connection.py:198: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\util\connection.py:85: in create_connection
+    raise err
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+address = ('localhost', 64974), timeout = 120, source_address = None
+socket_options = [(6, 1, 1)]
+
+    def create_connection(
+        address: tuple[str, int],
+        timeout: _TYPE_TIMEOUT = _DEFAULT_TIMEOUT,
+        source_address: tuple[str, int] | None = None,
+        socket_options: _TYPE_SOCKET_OPTIONS | None = None,
+    ) -> socket.socket:
+        """Connect to *address* and return the socket object.
+    
+        Convenience function.  Connect to *address* (a 2-tuple ``(host,
+        port)``) and return the socket object.  Passing the optional
+        *timeout* parameter will set the timeout on the socket instance
+        before attempting to connect.  If no *timeout* is supplied, the
+        global default timeout setting returned by :func:`socket.getdefaulttimeout`
+        is used.  If *source_address* is set it must be a tuple of (host, port)
+        for the socket to bind as a source address before making the connection.
+        An host of '' or port 0 tells the OS to use the default.
+        """
+    
+        host, port = address
+        if host.startswith("["):
+            host = host.strip("[]")
+        err = None
+    
+        # Using the value from allowed_gai_family() in the context of getaddrinfo lets
+        # us select whether to work with IPv4 DNS records, IPv6 records, or both.
+        # The original create_connection function always returns all records.
+        family = allowed_gai_family()
+    
+        try:
+            host.encode("idna")
+        except UnicodeError:
+            raise LocationParseError(f"'{host}', label empty or too long") from None
+    
+        for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+            af, socktype, proto, canonname, sa = res
+            sock = None
+            try:
+                sock = socket.socket(af, socktype, proto)
+    
+                # If provided, set socket level options before connecting.
+                _set_socket_options(sock, socket_options)
+    
+                if timeout is not _DEFAULT_TIMEOUT:
+                    sock.settimeout(timeout)
+                if source_address:
+                    sock.bind(source_address)
+>               sock.connect(sa)
+E               ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\util\connection.py:73: ConnectionRefusedError
+
+The above exception was the direct cause of the following exception:
+
+self = <urllib3.connectionpool.HTTPConnectionPool object at 0x000002CC7FCF99D0>
+method = 'POST', url = '/session/4867b9e3503553ab5885388639fb4c51/elements'
+body = '{"using": "xpath", "value": "//ol[@class=\'navigationBar-crumbList\']//li"}'
+headers = HTTPHeaderDict({'Accept': 'application/json', 'Content-Type': 'application/json;charset=UTF-8', 'User-Agent': 'selenium/4.29.0 (python windows)', 'Connection': 'keep-alive'})
+retries = Retry(total=0, connect=None, read=None, redirect=None, status=None)
+redirect = False, assert_same_host = False, timeout = 120, pool_timeout = None
+release_conn = True, chunked = False, body_pos = None, preload_content = True
+decode_content = True, response_kw = {}
+parsed_url = Url(scheme=None, auth=None, host=None, port=None, path='/session/4867b9e3503553ab5885388639fb4c51/elements', query=None, fragment=None)
+destination_scheme = None, conn = None, release_this_conn = True
+http_tunnel_required = False, err = None, clean_exit = False
+
+    def urlopen(  # type: ignore[override]
+        self,
+        method: str,
+        url: str,
+        body: _TYPE_BODY | None = None,
+        headers: typing.Mapping[str, str] | None = None,
+        retries: Retry | bool | int | None = None,
+        redirect: bool = True,
+        assert_same_host: bool = True,
+        timeout: _TYPE_TIMEOUT = _DEFAULT_TIMEOUT,
+        pool_timeout: int | None = None,
+        release_conn: bool | None = None,
+        chunked: bool = False,
+        body_pos: _TYPE_BODY_POSITION | None = None,
+        preload_content: bool = True,
+        decode_content: bool = True,
+        **response_kw: typing.Any,
+    ) -> BaseHTTPResponse:
+        """
+        Get a connection from the pool and perform an HTTP request. This is the
+        lowest level call for making a request, so you'll need to specify all
+        the raw details.
+    
+        .. note::
+    
+           More commonly, it's appropriate to use a convenience method
+           such as :meth:`request`.
+    
+        .. note::
+    
+           `release_conn` will only behave as expected if
+           `preload_content=False` because we want to make
+           `preload_content=False` the default behaviour someday soon without
+           breaking backwards compatibility.
+    
+        :param method:
+            HTTP request method (such as GET, POST, PUT, etc.)
+    
+        :param url:
+            The URL to perform the request on.
+    
+        :param body:
+            Data to send in the request body, either :class:`str`, :class:`bytes`,
+            an iterable of :class:`str`/:class:`bytes`, or a file-like object.
+    
+        :param headers:
+            Dictionary of custom headers to send, such as User-Agent,
+            If-None-Match, etc. If None, pool headers are used. If provided,
+            these headers completely replace any pool-specific headers.
+    
+        :param retries:
+            Configure the number of retries to allow before raising a
+            :class:`~urllib3.exceptions.MaxRetryError` exception.
+    
+            If ``None`` (default) will retry 3 times, see ``Retry.DEFAULT``. Pass a
+            :class:`~urllib3.util.retry.Retry` object for fine-grained control
+            over different types of retries.
+            Pass an integer number to retry connection errors that many times,
+            but no other types of errors. Pass zero to never retry.
+    
+            If ``False``, then retries are disabled and any exception is raised
+            immediately. Also, instead of raising a MaxRetryError on redirects,
+            the redirect response will be returned.
+    
+        :type retries: :class:`~urllib3.util.retry.Retry`, False, or an int.
+    
+        :param redirect:
+            If True, automatically handle redirects (status codes 301, 302,
+            303, 307, 308). Each redirect counts as a retry. Disabling retries
+            will disable redirect, too.
+    
+        :param assert_same_host:
+            If ``True``, will make sure that the host of the pool requests is
+            consistent else will raise HostChangedError. When ``False``, you can
+            use the pool on an HTTP proxy and request foreign hosts.
+    
+        :param timeout:
+            If specified, overrides the default timeout for this one
+            request. It may be a float (in seconds) or an instance of
+            :class:`urllib3.util.Timeout`.
+    
+        :param pool_timeout:
+            If set and the pool is set to block=True, then this method will
+            block for ``pool_timeout`` seconds and raise EmptyPoolError if no
+            connection is available within the time period.
+    
+        :param bool preload_content:
+            If True, the response's body will be preloaded into memory.
+    
+        :param bool decode_content:
+            If True, will attempt to decode the body based on the
+            'content-encoding' header.
+    
+        :param release_conn:
+            If False, then the urlopen call will not release the connection
+            back into the pool once a response is received (but will release if
+            you read the entire contents of the response such as when
+            `preload_content=True`). This is useful if you're not preloading
+            the response's content immediately. You will need to call
+            ``r.release_conn()`` on the response ``r`` to return the connection
+            back into the pool. If None, it takes the value of ``preload_content``
+            which defaults to ``True``.
+    
+        :param bool chunked:
+            If True, urllib3 will send the body using chunked transfer
+            encoding. Otherwise, urllib3 will send the body using the standard
+            content-length form. Defaults to False.
+    
+        :param int body_pos:
+            Position to seek to in file-like body in the event of a retry or
+            redirect. Typically this won't need to be set because urllib3 will
+            auto-populate the value when needed.
+        """
+        parsed_url = parse_url(url)
+        destination_scheme = parsed_url.scheme
+    
+        if headers is None:
+            headers = self.headers
+    
+        if not isinstance(retries, Retry):
+            retries = Retry.from_int(retries, redirect=redirect, default=self.retries)
+    
+        if release_conn is None:
+            release_conn = preload_content
+    
+        # Check host
+        if assert_same_host and not self.is_same_host(url):
+            raise HostChangedError(self, url, retries)
+    
+        # Ensure that the URL we're connecting to is properly encoded
+        if url.startswith("/"):
+            url = to_str(_encode_target(url))
+        else:
+            url = to_str(parsed_url.url)
+    
+        conn = None
+    
+        # Track whether `conn` needs to be released before
+        # returning/raising/recursing. Update this variable if necessary, and
+        # leave `release_conn` constant throughout the function. That way, if
+        # the function recurses, the original value of `release_conn` will be
+        # passed down into the recursive call, and its value will be respected.
+        #
+        # See issue #651 [1] for details.
+        #
+        # [1] <https://github.com/urllib3/urllib3/issues/651>
+        release_this_conn = release_conn
+    
+        http_tunnel_required = connection_requires_http_tunnel(
+            self.proxy, self.proxy_config, destination_scheme
+        )
+    
+        # Merge the proxy headers. Only done when not using HTTP CONNECT. We
+        # have to copy the headers dict so we can safely change it without those
+        # changes being reflected in anyone else's copy.
+        if not http_tunnel_required:
+            headers = headers.copy()  # type: ignore[attr-defined]
+            headers.update(self.proxy_headers)  # type: ignore[union-attr]
+    
+        # Must keep the exception bound to a separate variable or else Python 3
+        # complains about UnboundLocalError.
+        err = None
+    
+        # Keep track of whether we cleanly exited the except block. This
+        # ensures we do proper cleanup in finally.
+        clean_exit = False
+    
+        # Rewind body position, if needed. Record current position
+        # for future rewinds in the event of a redirect/retry.
+        body_pos = set_file_position(body, body_pos)
+    
+        try:
+            # Request a connection from the queue.
+            timeout_obj = self._get_timeout(timeout)
+            conn = self._get_conn(timeout=pool_timeout)
+    
+            conn.timeout = timeout_obj.connect_timeout  # type: ignore[assignment]
+    
+            # Is this a closed/new connection that requires CONNECT tunnelling?
+            if self.proxy is not None and http_tunnel_required and conn.is_closed:
+                try:
+                    self._prepare_proxy(conn)
+                except (BaseSSLError, OSError, SocketTimeout) as e:
+                    self._raise_timeout(
+                        err=e, url=self.proxy.url, timeout_value=conn.timeout
+                    )
+                    raise
+    
+            # If we're going to release the connection in ``finally:``, then
+            # the response doesn't need to know about the connection. Otherwise
+            # it will also try to release it and we'll have a double-release
+            # mess.
+            response_conn = conn if not release_conn else None
+    
+            # Make the request on the HTTPConnection object
+>           response = self._make_request(
+                conn,
+                method,
+                url,
+                timeout=timeout_obj,
+                body=body,
+                headers=headers,
+                chunked=chunked,
+                retries=retries,
+                response_conn=response_conn,
+                preload_content=preload_content,
+                decode_content=decode_content,
+                **response_kw,
+            )
+
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connectionpool.py:787: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connectionpool.py:493: in _make_request
+    conn.request(
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connection.py:445: in request
+    self.endheaders()
+C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\http\client.py:1333: in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\http\client.py:1093: in _send_output
+    self.send(msg)
+C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\http\client.py:1037: in send
+    self.connect()
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connection.py:276: in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <urllib3.connection.HTTPConnection object at 0x000002CC7FCFA000>
+
+    def _new_conn(self) -> socket.socket:
+        """Establish a socket connection and set nodelay settings on it.
+    
+        :return: New socket connection.
+        """
+        try:
+            sock = connection.create_connection(
+                (self._dns_host, self.port),
+                self.timeout,
+                source_address=self.source_address,
+                socket_options=self.socket_options,
+            )
+        except socket.gaierror as e:
+            raise NameResolutionError(self.host, self, e) from e
+        except SocketTimeout as e:
+            raise ConnectTimeoutError(
+                self,
+                f"Connection to {self.host} timed out. (connect timeout={self.timeout})",
+            ) from e
+    
+        except OSError as e:
+>           raise NewConnectionError(
+                self, f"Failed to establish a new connection: {e}"
+            ) from e
+E           urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000002CC7FCFA000>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connection.py:213: NewConnectionError
+
+The above exception was the direct cause of the following exception:
+
+data = {'Description/GroupDescription': 'Demo2', 'Dimension value/GroupValue': '12'}
+
+    @pytest.mark.ui
+    @pytest.mark.parametrize("data", test_data)
+    def test(data):
+        base = BaseTest("user1",incognito=True)
+        driver = base.driver
+        actions = base.actions
+        recorder=ScreenRecorder()
+        try:
+            recorder.start()
+            dimension = data['Dimension value/GroupValue']
+            description = data['Description/GroupDescription']
+            Interactions.wait_and_click(driver, By.XPATH, "//div[@aria-label='Modules']")
+    # Clicking navigation: General ledger
+            nav1 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='General ledger']")
+    # Clicking navigation: Chart of accounts
+            nav2 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Chart of accounts']")
+    # Clicking navigation: Dimensions
+            nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Dimensions']")
+    # Clicking navigation: Financial dimensions
+            base.steps_count +=1
+            nav4 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Financial dimensions']",base.steps_count, "Go to General ledger > Chart of accounts > Dimensions > Financial dimensions.")
+            time.sleep(3)
+            Interactions.assert_navigation(driver,nav1, nav2, nav3, nav4)
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='Close']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='Close']",base.steps_count, "Click Close.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='Close']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='Close']",base.steps_count,"Click Close.")
+    # Inputting into: QuickFilter
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'QuickFilter')]")):
+                locator=Interactions.get_locator(driver, By.XPATH, "//input[contains(@name,'QuickFilter')]")
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, locator, "cargo",base.steps_count,"Use the Quick Filter to find records. For example, filter on the Dimension name field with a value of 'cargo'.")
+                Interactions.press_enter(driver, By.XPATH, locator)
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'')]")):
+                locator=Interactions.get_locator(driver, By.XPATH, "//input[contains(@aria-label,'')]")
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, locator, "cargo",base.steps_count,"Use the Quick Filter to find records. For example, filter on the Dimension name field with a value of 'cargo'.")
+                Interactions.press_enter(driver, By.XPATH, locator)
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='DimensionValueDetails']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='DimensionValueDetails']",base.steps_count,"Click Dimension values.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='DimensionValueDetails']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='DimensionValueDetails']",base.steps_count,"Click Dimension values.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@aria-label='Dimension values']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@aria-label='Dimension values']",base.steps_count,"Click Dimension values.")
+            else:
+                Interactions.wait_and_click(driver, By.XPATH, "//div[@data-dyn-controlname='ActionPane']//div[@class='appBar-toolbar']//div[@data-dyn-role='OverflowButton']")
+                if(Interactions.check_element_exist(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@name='DimensionValueDetails']")):
+                    Interactions.wait_and_click(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@name='DimensionValueDetails']",base.steps_count,"Click Dimension values.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@aria-label='Dimension values']")):
+                    Interactions.wait_and_click(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@aria-label='Dimension values']",base.steps_count,"Click Dimension values.")
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']",base.steps_count, "Click New.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedNewButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedNewButton']",base.steps_count,"Click New.")
+            base.steps_count +=1
+    # Inputting into: GroupValue
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'GroupValue')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Dimension value')]") ):
+                #clicking inside grid: GroupValue
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'GroupValue')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'GroupValue')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'GroupValue')])[1]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Dimension value')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Dimension value')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Dimension value')])[1]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'GroupValue')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'GroupValue')]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Dimension value')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Dimension value')]", dimension,base.steps_count,"In the Dimension value field, type a value.")
+            Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+    # Inputting into: GroupDescription
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'GroupDescription')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Description')]") ):
+                #clicking inside grid: GroupDescription
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'GroupDescription')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'GroupDescription')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'GroupDescription')])[1]", description,base.steps_count,"In the Description field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Description')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Description')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Description')])[1]", description,base.steps_count,"In the Description field, type a value.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'GroupDescription')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'GroupDescription')]", description,base.steps_count,"In the Description field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Description')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Description')]", description,base.steps_count,"In the Description field, type a value.")
+            Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+            base.steps_count +=1
+            Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedSaveButton']",base.steps_count, "Click Save.")
+            assert True
+        except Exception as e:
+            base.test_passed = False
+>           raise e
+
+tests\script_data_test_1_test.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\script_data_test_1_test.py:36: in test
+    Interactions.assert_navigation(driver,nav1, nav2, nav3, nav4)
+Utils\Interactions.py:710: in assert_navigation
+    navigated_items = driver.find_elements(By.XPATH, navigation_xpath)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\selenium\webdriver\remote\webdriver.py:936: in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\selenium\webdriver\remote\webdriver.py:427: in execute
+    response = self.command_executor.execute(driver_command, params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\selenium\webdriver\remote\remote_connection.py:404: in execute
+    return self._request(command_info[0], url, body=data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\selenium\webdriver\remote\remote_connection.py:428: in _request
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\_request_methods.py:143: in request
+    return self.request_encode_body(
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\_request_methods.py:278: in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\poolmanager.py:443: in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connectionpool.py:871: in urlopen
+    return self.urlopen(
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connectionpool.py:871: in urlopen
+    return self.urlopen(
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connectionpool.py:871: in urlopen
+    return self.urlopen(
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\connectionpool.py:841: in urlopen
+    retries = retries.increment(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Retry(total=0, connect=None, read=None, redirect=None, status=None)
+method = 'POST', url = '/session/4867b9e3503553ab5885388639fb4c51/elements'
+response = None
+error = NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCFA000>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')
+_pool = <urllib3.connectionpool.HTTPConnectionPool object at 0x000002CC7FCF99D0>
+_stacktrace = <traceback object at 0x000002CC7FC632C0>
+
+    def increment(
+        self,
+        method: str | None = None,
+        url: str | None = None,
+        response: BaseHTTPResponse | None = None,
+        error: Exception | None = None,
+        _pool: ConnectionPool | None = None,
+        _stacktrace: TracebackType | None = None,
+    ) -> Self:
+        """Return a new Retry object with incremented retry counters.
+    
+        :param response: A response object, or None, if the server did not
+            return a response.
+        :type response: :class:`~urllib3.response.BaseHTTPResponse`
+        :param Exception error: An error encountered during the request, or
+            None if the response was received successfully.
+    
+        :return: A new ``Retry`` object.
+        """
+        if self.total is False and error:
+            # Disabled, indicate to re-raise the error.
+            raise reraise(type(error), error, _stacktrace)
+    
+        total = self.total
+        if total is not None:
+            total -= 1
+    
+        connect = self.connect
+        read = self.read
+        redirect = self.redirect
+        status_count = self.status
+        other = self.other
+        cause = "unknown"
+        status = None
+        redirect_location = None
+    
+        if error and self._is_connection_error(error):
+            # Connect retry?
+            if connect is False:
+                raise reraise(type(error), error, _stacktrace)
+            elif connect is not None:
+                connect -= 1
+    
+        elif error and self._is_read_error(error):
+            # Read retry?
+            if read is False or method is None or not self._is_method_retryable(method):
+                raise reraise(type(error), error, _stacktrace)
+            elif read is not None:
+                read -= 1
+    
+        elif error:
+            # Other retry?
+            if other is not None:
+                other -= 1
+    
+        elif response and response.get_redirect_location():
+            # Redirect retry?
+            if redirect is not None:
+                redirect -= 1
+            cause = "too many redirects"
+            response_redirect_location = response.get_redirect_location()
+            if response_redirect_location:
+                redirect_location = response_redirect_location
+            status = response.status
+    
+        else:
+            # Incrementing because of a server error like a 500 in
+            # status_forcelist and the given method is in the allowed_methods
+            cause = ResponseError.GENERIC_ERROR
+            if response and response.status:
+                if status_count is not None:
+                    status_count -= 1
+                cause = ResponseError.SPECIFIC_ERROR.format(status_code=response.status)
+                status = response.status
+    
+        history = self.history + (
+            RequestHistory(method, url, error, status, redirect_location),
+        )
+    
+        new_retry = self.new(
+            total=total,
+            connect=connect,
+            read=read,
+            redirect=redirect,
+            status=status_count,
+            other=other,
+            history=history,
+        )
+    
+        if new_retry.is_exhausted():
+            reason = error or ResponseError(cause)
+>           raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/elements (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCFA000>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\urllib3\util\retry.py:519: MaxRetryError
+---------------------------- Captured stdout call -----------------------------
+Login Successful as user1\n\u26a0\ufe0f Primary click failed on base_xpath: //div[@aria-label='Modules'] - Message: \nStacktrace:\n\tGetHandleVerifier [0x0x7ff7d5c16f95+76917]\n\tGetHandleVerifier [0x0x7ff7d5c16ff0+77008]\n\t(No symbol) [0x0x7ff7d59c9dea]\n\t(No symbol) [0x0x7ff7d5a20256]\n\t(No symbol) [0x0x7ff7d5a2050c]\n\t(No symbol) [0x0x7ff7d5a73887]\n\t(No symbol) [0x0x7ff7d5a484af]\n\t(No symbol) [0x0x7ff7d5a7065c]\n\t(No symbol) [0x0x7ff7d5a48243]\n\t(No symbol) [0x0x7ff7d5a11431]\n\t(No symbol) [0x0x7ff7d5a121c3]\n\tGetHandleVerifier [0x0x7ff7d5eed2cd+3051437]\n\tGetHandleVerifier [0x0x7ff7d5ee7923+3028483]\n\tGetHandleVerifier [0x0x7ff7d5f058bd+3151261]\n\tGetHandleVerifier [0x0x7ff7d5c3185e+185662]\n\tGetHandleVerifier [0x0x7ff7d5c3971f+218111]\n\tGetHandleVerifier [0x0x7ff7d5c1fb14+112628]\n\tGetHandleVerifier [0x0x7ff7d5c1fcc9+113065]\n\tGetHandleVerifier [0x0x7ff7d5c06c98+10616]\n\tBaseThreadInitThunk [0x0x7ffe3911e8d7+23]\n\tRtlUserThreadStart [0x0x7ffe39f9c34c+44]\n\n\U0001f4f8 Screenshot saved: reports/screens\\script_data_test_1_test_20250708_150105.png\n\u274c Attempt 1 failed for xpath: (//div[@aria-label='Modules'])[1] - Message: \nStacktrace:\n\tGetHandleVerifier [0x0x7ff7d5c16f95+76917]\n\tGetHandleVerifier [0x0x7ff7d5c16ff0+77008]\n\t(No symbol) [0x0x7ff7d59c9dea]\n\t(No symbol) [0x0x7ff7d5a20256]\n\t(No symbol) [0x0x7ff7d5a2050c]\n\t(No symbol) [0x0x7ff7d5a73887]\n\t(No symbol) [0x0x7ff7d5a484af]\n\t(No symbol) [0x0x7ff7d5a7065c]\n\t(No symbol) [0x0x7ff7d5a48243]\n\t(No symbol) [0x0x7ff7d5a11431]\n\t(No symbol) [0x0x7ff7d5a121c3]\n\tGetHandleVerifier [0x0x7ff7d5eed2cd+3051437]\n\tGetHandleVerifier [0x0x7ff7d5ee7923+3028483]\n\tGetHandleVerifier [0x0x7ff7d5f058bd+3151261]\n\tGetHandleVerifier [0x0x7ff7d5c3185e+185662]\n\tGetHandleVerifier [0x0x7ff7d5c3971f+218111]\n\tGetHandleVerifier [0x0x7ff7d5c1fb14+112628]\n\tGetHandleVerifier [0x0x7ff7d5c1fcc9+113065]\n\tGetHandleVerifier [0x0x7ff7d5c06c98+10616]\n\tBaseThreadInitThunk [0x0x7ffe3911e8d7+23]\n\tRtlUserThreadStart [0x0x7ffe39f9c34c+44]\n\n\u274c Attempt 2 failed for xpath: (//div[@aria-label='Modules'])[2] - Message: \nStacktrace:\n\tGetHandleVerifier [0x0x7ff7d5c16f95+76917]\n\tGetHandleVerifier [0x0x7ff7d5c16ff0+77008]\n\t(No symbol) [0x0x7ff7d59c9dea]\n\t(No symbol) [0x0x7ff7d5a20256]\n\t(No symbol) [0x0x7ff7d5a2050c]\n\t(No symbol) [0x0x7ff7d5a73887]\n\t(No symbol) [0x0x7ff7d5a484af]\n\t(No symbol) [0x0x7ff7d5a7065c]\n\t(No symbol) [0x0x7ff7d5a48243]\n\t(No symbol) [0x0x7ff7d5a11431]\n\t(No symbol) [0x0x7ff7d5a121c3]\n\tGetHandleVerifier [0x0x7ff7d5eed2cd+3051437]\n\tGetHandleVerifier [0x0x7ff7d5ee7923+3028483]\n\tGetHandleVerifier [0x0x7ff7d5f058bd+3151261]\n\tGetHandleVerifier [0x0x7ff7d5c3185e+185662]\n\tGetHandleVerifier [0x0x7ff7d5c3971f+218111]\n\tGetHandleVerifier [0x0x7ff7d5c1fb14+112628]\n\tGetHandleVerifier [0x0x7ff7d5c1fcc9+113065]\n\tGetHandleVerifier [0x0x7ff7d5c06c98+10616]\n\tBaseThreadInitThunk [0x0x7ffe3911e8d7+23]\n\tRtlUserThreadStart [0x0x7ffe39f9c34c+44]\n\n\u274c Attempt 3 failed for xpath: (//div[@aria-label='Modules'])[3] - Message: \nStacktrace:\n\tGetHandleVerifier [0x0x7ff7d5c16f95+76917]\n\tGetHandleVerifier [0x0x7ff7d5c16ff0+77008]\n\t(No symbol) [0x0x7ff7d59c9dea]\n\t(No symbol) [0x0x7ff7d5a20256]\n\t(No symbol) [0x0x7ff7d5a2050c]\n\t(No symbol) [0x0x7ff7d5a73887]\n\t(No symbol) [0x0x7ff7d5a484af]\n\t(No symbol) [0x0x7ff7d5a7065c]\n\t(No symbol) [0x0x7ff7d5a48243]\n\t(No symbol) [0x0x7ff7d5a11431]\n\t(No symbol) [0x0x7ff7d5a121c3]\n\tGetHandleVerifier [0x0x7ff7d5eed2cd+3051437]\n\tGetHandleVerifier [0x0x7ff7d5ee7923+3028483]\n\tGetHandleVerifier [0x0x7ff7d5f058bd+3151261]\n\tGetHandleVerifier [0x0x7ff7d5c3185e+185662]\n\tGetHandleVerifier [0x0x7ff7d5c3971f+218111]\n\tGetHandleVerifier [0x0x7ff7d5c1fb14+112628]\n\tGetHandleVerifier [0x0x7ff7d5c1fcc9+113065]\n\tGetHandleVerifier [0x0x7ff7d5c06c98+10616]\n\tBaseThreadInitThunk [0x0x7ffe3911e8d7+23]\n\tRtlUserThreadStart [0x0x7ffe39f9c34c+44]\n\n\u274c All attempts failed for base_xpath: //div[@aria-label='Modules']\n\U0001f4f8 Screenshot saved: reports/screens\\script_data_test_1_test_20250708_150137.png\n\u26a0\ufe0f Primary click failed on base_xpath: //a[@data-dyn-title='General ledger'] - Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: chrome=138.0.7204.96)\nStacktrace:\n\tGetHandleVerifier [0x0x7ff7d5c16f95+76917]\n\tGetHandleVerifier [0x0x7ff7d5c16ff0+77008]\n\t(No symbol) [0x0x7ff7d59c9dea]\n\t(No symbol) [0x0x7ff7d59b5f15]\n\t(No symbol) [0x0x7ff7d59dabf4]\n\t(No symbol) [0x0x7ff7d5a4fa85]\n\t(No symbol) [0x0x7ff7d5a6ff72]\n\t(No symbol) [0x0x7ff7d5a48243]\n\t(No symbol) [0x0x7ff7d5a11431]\n\t(No symbol) [0x0x7ff7d5a121c3]\n\tGetHandleVerifier [0x0x7ff7d5eed2cd+3051437]\n\tGetHandleVerifier [0x0x7ff7d5ee7923+3028483]\n\tGetHandleVerifier [0x0x7ff7d5f058bd+3151261]\n\tGetHandleVerifier [0x0x7ff7d5c3185e+185662]\n\tGetHandleVerifier [0x0x7ff7d5c3971f+218111]\n\tGetHandleVerifier [0x0x7ff7d5c1fb14+112628]\n\tGetHandleVerifier [0x0x7ff7d5c1fcc9+113065]\n\tGetHandleVerifier [0x0x7ff7d5c06c98+10616]\n\tBaseThreadInitThunk [0x0x7ffe3911e8d7+23]\n\tRtlUserThreadStart [0x0x7ffe39f9c34c+44]\n\n\u26a0\ufe0f Failed to take screenshot: Message: invalid session id\nStacktrace:\n\tGetHandleVerifier [0x0x7ff7d5c16f95+76917]\n\tGetHandleVerifier [0x0x7ff7d5c16ff0+77008]\n\t(No symbol) [0x0x7ff7d59c9c1c]\n\t(No symbol) [0x0x7ff7d5a1055f]\n\t(No symbol) [0x0x7ff7d5a48332]\n\t(No symbol) [0x0x7ff7d5a42e53]\n\t(No symbol) [0x0x7ff7d5a41f19]\n\t(No symbol) [0x0x7ff7d5994b05]\n\tGetHandleVerifier [0x0x7ff7d5eed2cd+3051437]\n\tGetHandleVerifier [0x0x7ff7d5ee7923+3028483]\n\tGetHandleVerifier [0x0x7ff7d5f058bd+3151261]\n\tGetHandleVerifier [0x0x7ff7d5c3185e+185662]\n\tGetHandleVerifier [0x0x7ff7d5c3971f+218111]\n\t(No symbol) [0x0x7ff7d5993b00]\n\tGetHandleVerifier [0x0x7ff7d6005f38+4201496]\n\tBaseThreadInitThunk [0x0x7ffe3911e8d7+23]\n\tRtlUserThreadStart [0x0x7ffe39f9c34c+44]\n\n\u26a0\ufe0f Primary click failed on base_xpath: //a[@data-dyn-title='Chart of accounts'] - HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC44290>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))\n\u26a0\ufe0f Failed to take screenshot: HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/screenshot (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC46360>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))\n\u26a0\ufe0f Primary click failed on base_xpath: //a[@data-dyn-title='Dimensions'] - HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC46C30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))\n\u26a0\ufe0f Failed to take screenshot: HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/screenshot (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC47530>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))\n\u26a0\ufe0f Primary click failed on base_xpath: //a[@data-dyn-title='Financial dimensions'] - HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF86E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))\n\u26a0\ufe0f Failed to take screenshot: HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/screenshot (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF8F50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))\n\u274c Test case failed\n\u26a0\ufe0f Failed to take screenshot: HTTPConnectionPool(host='localhost', port=64974): Max retries exceeded with url: /session/4867b9e3503553ab5885388639fb4c51/screenshot (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCD5370>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))\n\U0001f5d1\ufe0f Discarded failed test recording.
+------------------------------ Captured log call ------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC443B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC44740>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC44BC0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC447D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC46000>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC461B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC45E50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC466C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7F7D0CE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC464B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC45520>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC468A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC46F90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC47170>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC47350>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC46F60>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC47980>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC47B60>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FC47F20>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF8200>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF8470>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/element
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF89E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF8B90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF8D70>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF89B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF9340>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF9520>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF9B80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/elements
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF8F20>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/elements
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCF9D90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/elements
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCD4C80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCD4FE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCD5490>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51/screenshot
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCFA390>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCFA270>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+WARNING  urllib3.connectionpool:connectionpool.py:868 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002CC7FCCA6F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4867b9e3503553ab5885388639fb4c51
+____________________________________ test _____________________________________
+
+    @pytest.mark.ui
+    def test():
+        base = BaseTest("user1",incognito=True)
+        driver = base.driver
+        actions = base.actions
+        recorder=ScreenRecorder()
+        try:
+            recorder.start()
+            Interactions.wait_and_click(driver, By.XPATH, "//div[@aria-label='Modules']")
+    # Clicking navigation: Procurement and sourcing
+            nav1 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Procurement and sourcing']")
+    # Clicking navigation: Purchase orders
+            nav2 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Purchase orders']")
+    # Clicking navigation: All purchase orders
+            base.steps_count +=1
+            nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='All purchase orders']",base.steps_count, "Go to Procurement and sourcing > Purchase orders > All purchase orders.")
+            time.sleep(3)
+            Interactions.assert_navigation(driver,nav1, nav2, nav3)
+            base.steps_count +=1
+    # Clicking filter manager: SystemDefinedFilterManager
+            column_to_open = "Purchase order"
+            open_divs = driver.find_elements(By.XPATH, "//div/parent::div[contains(@class, 'dyn-headerCell')]")
+            filter_manager_cloumn_last_opened = ''
+            for i, div in enumerate(open_divs, start=1):
+                class_attr = div.get_attribute('class')
+                if 'hasOpenPopup' in class_attr:
+                    filter_manager_cloumn_last_opened = Interactions.get_element_text(driver, By.XPATH, f"(//div/parent::div[contains(@class, 'dyn-headerCell')])[1]")
+                    break
+            if filter_manager_cloumn_last_opened == 'Purchase order' and filter_manager_cloumn_last_opened != '':
+                Interactions.wait_and_click(driver, By.XPATH, "//div[text()='Purchase order']")
+                Interactions.wait_and_click(driver, By.XPATH, "//div[text()='Purchase order']", base.steps_count,"Open Purchase order column filter.")
+            else:
+                Interactions.wait_and_click(driver, By.XPATH, "//div[text()='Purchase order']", base.steps_count,"Open Purchase order column filter.")
+            base.steps_count +=1
+            filter_manager_data = Interactions.extract_value_and_operator_from_description("Enter a filter value of '00000823' on the 'Purchase order' field using the 'is exactly' filter operator.")
+            operator = filter_manager_data['operator']
+            new_val = filter_manager_data['value']
+            field_name = filter_manager_data['field_name']
+            drop_down_item = "//input[contains(@aria-label,'Filter field: "+field_name+",')]/ancestor::div[@class='columnHeader-popup sysPopup']/ancestor::body/child::div[@class='sysPopup flyoutButton-flyOut layout-root-scope']//button//span[text()='"+operator+"']"
+            input_field = "//input[contains(@aria-label,'Filter field: "+field_name+",')]"
+            apply_button = "//input[contains(@aria-label,'Filter field: "+field_name+", operator: ')]//ancestor::div/child::div[@class='columnHeaderPopup-buttons']//span[text()='Apply']/ancestor::button"
+            dropDown_button = "//span[contains(@class,'button-label-dropDown')]/ancestor::button[contains(@class,'dynamicsButton')][ancestor::div[@class='filterFieldContainer']//input[contains(@aria-label,'Filter field: "+field_name+"')]]"
+            Interactions.wait_and_click(driver, By.XPATH, dropDown_button)
+            Interactions.wait_and_click(driver, By.XPATH, drop_down_item)
+            if(Interactions.check_element_exist(driver, By.XPATH, "//div[contains(@class,'popupShadow popupView preview')]")):
+                other_element = driver.find_element(By.XPATH, "//div[text()='" + field_name + "']")
+                actions.move_to_element(other_element).perform()
+            if operator == 'is one of' or operator == 'matches':
+                new_val = Interactions.extract_multiple_values(new_val)
+                for new_val_value in new_val:
+                    Interactions.wait_and_send_keys(driver, By.XPATH, input_field, new_val_value)
+                    Interactions.wait_and_click(driver, By.XPATH, apply_button)
+            elif operator == 'between':
+                new_val = Interactions.extract_dates(new_val)
+                from_date_locator = "(//input[contains(@aria-label,'Filter field: " + field_name + ",')])[1]"
+                to_date_locator = "(//input[contains(@aria-label,'Filter field: " + field_name + ",')])[2]"
+                Interactions.wait_and_send_keys(driver, By.XPATH, from_date_locator, new_val[0])
+                Interactions.wait_and_send_keys(driver, By.XPATH, to_date_locator, new_val[1])
+            else:
+                Interactions.wait_and_send_keys(driver, By.XPATH, input_field, new_val)
+            Interactions.wait_and_click(driver, By.XPATH, apply_button, base.steps_count,"Enter a filter value of '00000823' on the 'Purchase order' field using the 'is exactly' filter operator.")
+            base.steps_count +=1
+    # Clicking button: Grid
+            user_input = input("Press data to select: ")
+            Interactions.scroll_and_click_row(driver, By.XPATH, "//div[contains(@class,'fixedDataTableRowLayout_')]/ancestor::div[@role='grid']", f"//input[@value='{user_input}']", base.steps_count,"In the list, click the link in the selected row.")
+            Interactions.press_enter(driver, By.XPATH, "//input[@value='"+user_input+"']")
+            base.steps_count +=1
+    # Clicking (default) on: PurchOrder
+            time.sleep(3)
+            Interactions.wait_and_click(driver, By.XPATH, "//button/parent::div[@data-dyn-controlname='PurchOrder']",base.steps_count,"On the Action Pane, click Purchase order.")
+            base.steps_count +=1
+    # Clicking (default) on: General
+            time.sleep(3)
+            Interactions.wait_and_click(driver, By.XPATH, "//button/parent::div[@data-dyn-controlname='General']",base.steps_count,"On the Action Pane, click General.")
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='OrderReferences']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='OrderReferences']",base.steps_count,"Click Related orders.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='OrderReferences']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='OrderReferences']",base.steps_count,"Click Related orders.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@aria-label='Related orders']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@aria-label='Related orders']",base.steps_count,"Click Related orders.")
+            else:
+                Interactions.wait_and_click(driver, By.XPATH, "//div[@data-dyn-controlname='ActionPane']//div[@class='appBar-toolbar']//div[@data-dyn-role='OverflowButton']")
+                if(Interactions.check_element_exist(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@name='OrderReferences']")):
+                    Interactions.wait_and_click(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@name='OrderReferences']",base.steps_count,"Click Related orders.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@aria-label='Related orders']")):
+                    Interactions.wait_and_click(driver, By.XPATH, "//div[@class='overflow-menu sysPopup allowFlyoutClickPropagation']//button[@aria-label='Related orders']",base.steps_count,"Click Related orders.")
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='OkButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='OkButton']",base.steps_count, "Click OK.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='OkButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='OkButton']",base.steps_count,"Click OK.")
+    # Closing the page
+            base.steps_count +=1
+            Interactions.click_back_button(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedCloseButton']", base.steps_count)
+            time.sleep(1)
+            assert True
+        except Exception as e:
+            base.test_passed = False
+>           raise e
+
+tests\script_data_test_2_test.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\script_data_test_2_test.py:73: in test
+    user_input = input("Press data to select: ")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_pytest.capture.DontReadFromInput object at 0x000002CC75098B00>
+size = -1
+
+    def read(self, size: int = -1) -> str:
+>       raise OSError(
+            "pytest: reading from stdin while output is captured!  Consider using `-s`."
+        )
+E       OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\capture.py:229: OSError
+---------------------------- Captured stdout call -----------------------------
+Login Successful as user1\n\u2705 Clicked element with base_xpath: //div[@aria-label='Modules']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='Procurement and sourcing']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='All purchase orders']\nNavigation found: ['Procurement and sourcing', 'Purchase orders', 'All purchase orders']\nNavigation verified successfully.\n\u2705 Clicked element with base_xpath: //div[text()='Purchase order']\n\u2705 Clicked element with base_xpath: //span[contains(@class,'button-label-dropDown')]/ancestor::button[contains(@class,'dynamicsButton')][ancestor::div[@class='filterFieldContainer']//input[contains(@aria-label,'Filter field: Purchase order')]]\n\u2705 Clicked element with base_xpath: //input[contains(@aria-label,'Filter field: Purchase order,')]/ancestor::div[@class='columnHeader-popup sysPopup']/ancestor::body/child::div[@class='sysPopup flyoutButton-flyOut layout-root-scope']//button//span[text()='is exactly']\n\u2705 Clicked element with base_xpath: //input[contains(@aria-label,'Filter field: Purchase order, operator: ')]//ancestor::div/child::div[@class='columnHeaderPopup-buttons']//span[text()='Apply']/ancestor::button\nPress data to select: \u274c Test case failed\n\U0001f4f8 Screenshot saved: reports/screens\\script_data_test_2_test_20250708_150625.png\n\U0001f5d1\ufe0f Discarded failed test recording.
+_________________________________ test[data0] _________________________________
+
+data = {'Charge description/MarkupAutoTable_MarkupAutoTableDescription': 'Demo', 'Charges code/MarkupAutoLine_MarkupCode': 'DAP', 'Charges value/MarkupAutoLine_Value': '10.00', 'Customer relation/MarkupAutoTable_AccountRelation': 'US-003'}
+
+    @pytest.mark.ui
+    @pytest.mark.parametrize("data", test_data)
+    def test(data):
+        base = BaseTest("user1",incognito=True)
+        driver = base.driver
+        actions = base.actions
+        recorder=ScreenRecorder()
+    
+        try:
+            recorder.start()
+            relation = data['Customer relation/MarkupAutoTable_AccountRelation']
+            description = data['Charge description/MarkupAutoTable_MarkupAutoTableDescription']
+            charges = data['Charges code/MarkupAutoLine_MarkupCode']
+            value = data['Charges value/MarkupAutoLine_Value']
+            Interactions.wait_and_click(driver, By.XPATH, "//div[@aria-label='Modules']")
+    # Clicking navigation: Accounts receivable
+            nav1 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Accounts receivable']")
+    # Clicking navigation: Charges setup
+            nav2 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Charges setup']")
+    # Clicking navigation: Auto charges
+            base.steps_count +=1
+            nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Auto charges']",base.steps_count, "Go to Accounts receivable > Charges setup > Auto charges.")
+            time.sleep(3)
+            Interactions.assert_navigation(driver,nav1, nav2, nav3)
+            base.steps_count +=1
+            if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']",base.steps_count, "Click New.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedNewButton']")):
+                Interactions.wait_and_click(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedNewButton']",base.steps_count,"Click New.")
+            base.steps_count +=1
+    # Inputting into: MarkupAutoTable_AccountRelation
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'MarkupAutoTable_AccountRelation')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Customer relation')]") ):
+                #clicking inside grid: MarkupAutoTable_AccountRelation
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoTable_AccountRelation')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'MarkupAutoTable_AccountRelation')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoTable_AccountRelation')])[1]", relation,base.steps_count,"In the Customer relation field, enter or select a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Customer relation')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Customer relation')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Customer relation')])[1]", relation,base.steps_count,"In the Customer relation field, enter or select a value.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'MarkupAutoTable_AccountRelation')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'MarkupAutoTable_AccountRelation')]", relation,base.steps_count,"In the Customer relation field, enter or select a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Customer relation')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Customer relation')]", relation,base.steps_count,"In the Customer relation field, enter or select a value.")
+            Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+            base.steps_count +=1
+    #    "Skipping grid selection due input in the ancestor"
+            base.steps_count +=1
+    # Inputting into: MarkupAutoTable_MarkupAutoTableDescription
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'MarkupAutoTable_MarkupAutoTableDescription')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Charge description')]") ):
+                #clicking inside grid: MarkupAutoTable_MarkupAutoTableDescription
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoTable_MarkupAutoTableDescription')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'MarkupAutoTable_MarkupAutoTableDescription')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoTable_MarkupAutoTableDescription')])[1]", description,base.steps_count,"In the Charge description field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Charge description')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Charge description')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Charge description')])[1]", description,base.steps_count,"In the Charge description field, type a value.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'MarkupAutoTable_MarkupAutoTableDescription')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'MarkupAutoTable_MarkupAutoTableDescription')]", description,base.steps_count,"In the Charge description field, type a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Charge description')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Charge description')]", description,base.steps_count,"In the Charge description field, type a value.")
+            Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+            base.steps_count +=1
+            Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedSaveButton']",base.steps_count, "Click Save.")
+            base.steps_count +=1
+    #    "Skipping grid since it is deafault behavior of d365"
+            base.steps_count +=1
+    # Inputting into: MarkupAutoLine_MarkupCode
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'MarkupAutoLine_MarkupCode')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Charges code')]") ):
+                #clicking inside grid: MarkupAutoLine_MarkupCode
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoLine_MarkupCode')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'MarkupAutoLine_MarkupCode')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoLine_MarkupCode')])[1]", charges,base.steps_count,"In the Charges code field, enter or select a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Charges code')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Charges code')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Charges code')])[1]", charges,base.steps_count,"In the Charges code field, enter or select a value.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'MarkupAutoLine_MarkupCode')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'MarkupAutoLine_MarkupCode')]", charges,base.steps_count,"In the Charges code field, enter or select a value.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Charges code')]")):
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Charges code')]", charges,base.steps_count,"In the Charges code field, enter or select a value.")
+            Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+    # Clicking button: Grid
+            user_input = input("Press data to select: ")
+            Interactions.scroll_and_click_row(driver, By.XPATH, "//div[contains(@class,'fixedDataTableRowLayout_')]/ancestor::div[@role='grid']", f"//input[@value='{user_input}']", base.steps_count,"In the list, select row 3.")
+            Interactions.press_enter(driver, By.XPATH, "//input[@value='"+user_input+"']")
+            base.steps_count +=1
+    #    "Skipping grid selection due input in the ancestor"
+            base.steps_count +=1
+            if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'MarkupAutoLine_Value')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Charges value')]") ):
+                #clicking inside grid: MarkupAutoLine_Value
+                if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoLine_Value')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"(//input[contains(@name,'MarkupAutoLine_Value')])[1]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'MarkupAutoLine_Value')])[1]",value, base.steps_count,"In the Charges value field, enter a number.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Charges value')])[1]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"(//input[contains(@aria-label,'Charges value')])[1]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Charges value')])[1]", value, base.steps_count,"In the Charges value field, enter a number.")
+            else:
+                if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'MarkupAutoLine_Value')]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'MarkupAutoLine_Value')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'MarkupAutoLine_Value')]", value, base.steps_count,"In the Charges value field, enter a number.")
+                elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Charges value')]")):
+                    actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@aria-label,'Charges value')]")).perform()
+                    Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Charges value')]", value, base.steps_count,"In the Charges value field, enter a number.")
+                Interactions.press_enter(driver, By.XPATH, "//body")
+            base.steps_count +=1
+            base.steps_count +=1
+            Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedSaveButton']",base.steps_count, "Click Save.")
+            assert True
+        except Exception as e:
+            base.test_passed = False
+>           raise e
+
+tests\script_data_test_3_test.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\script_data_test_3_test.py:100: in test
+    user_input = input("Press data to select: ")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_pytest.capture.DontReadFromInput object at 0x000002CC75098B00>
+size = -1
+
+    def read(self, size: int = -1) -> str:
+>       raise OSError(
+            "pytest: reading from stdin while output is captured!  Consider using `-s`."
+        )
+E       OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+
+..\..\..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\_pytest\capture.py:229: OSError
+---------------------------- Captured stdout call -----------------------------
+Login Successful as user1\n\u2705 Clicked element with base_xpath: //div[@aria-label='Modules']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='Accounts receivable']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='Charges setup']\n\u2705 Clicked element with base_xpath: //a[@data-dyn-title='Auto charges']\nNavigation found: ['Accounts receivable', 'Charges setup', 'Auto charges']\nNavigation verified successfully.\n\u2705 Clicked element with base_xpath: //button[@name='SystemDefinedNewButton']\n\u2705 Clicked element with base_xpath: //button[@name='SystemDefinedSaveButton']\nPress data to select: \u274c Test case failed\n\U0001f4f8 Screenshot saved: reports/screens\\script_data_test_3_test_20250708_150813.png\n\U0001f5d1\ufe0f Discarded failed test recording.
+- generated xml file: C:\Users\SahilSubba\Desktop\javascript\RsatA_project\build-1.2\reports\report.xml -
+- Generated html report: file:///C:/Users/SahilSubba/Desktop/javascript/RsatA_project/build-1.2/reports/report.html -
+=========================== short test summary info ===========================
+FAILED tests/script_data_test_1_test.py::test[data0] - AssertionError: Not en...
+FAILED tests/script_data_test_1_test.py::test[data1] - urllib3.exceptions.Max...
+FAILED tests/script_data_test_2_test.py::test - OSError: pytest: reading from...
+FAILED tests/script_data_test_3_test.py::test[data0] - OSError: pytest: readi...
+======================== 4 failed in 510.50s (0:08:30) ========================
