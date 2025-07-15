@@ -1,0 +1,44 @@
+Login Successful as user1
+✅ Clicked element with base_xpath: //div[@aria-label='Modules']
+Navigation found: ['Product information management', 'Products', 'All products and product masters']
+Navigation verified successfully.
+ ❌ Validation Failed 
+Validation step logged for: Product number
+⚠️ Primary click failed on base_xpath: //input[@value='0007']/ancestor::div[@class='fixedDataTableRowLayout_body']/div[1]//div[@role='checkbox'] - Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.101); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff700f86f75+76917]
+	GetHandleVerifier [0x0x7ff700f86fd0+77008]
+	(No symbol) [0x0x7ff700d39dea]
+	(No symbol) [0x0x7ff700d41789]
+	(No symbol) [0x0x7ff700d4482c]
+	(No symbol) [0x0x7ff700d448ff]
+	(No symbol) [0x0x7ff700d9245d]
+	(No symbol) [0x0x7ff700d832d3]
+	(No symbol) [0x0x7ff700db846a]
+	(No symbol) [0x0x7ff700d82c16]
+	(No symbol) [0x0x7ff700db8680]
+	(No symbol) [0x0x7ff700de065c]
+	(No symbol) [0x0x7ff700db8243]
+	(No symbol) [0x0x7ff700d81431]
+	(No symbol) [0x0x7ff700d821c3]
+	GetHandleVerifier [0x0x7ff70125d2ad+3051437]
+	GetHandleVerifier [0x0x7ff701257903+3028483]
+	GetHandleVerifier [0x0x7ff70127589d+3151261]
+	GetHandleVerifier [0x0x7ff700fa183e+185662]
+	GetHandleVerifier [0x0x7ff700fa96ff+218111]
+	GetHandleVerifier [0x0x7ff700f8faf4+112628]
+	GetHandleVerifier [0x0x7ff700f8fca9+113065]
+	GetHandleVerifier [0x0x7ff700f76c78+10616]
+	BaseThreadInitThunk [0x0x7fff8af4e8d7+23]
+	RtlUserThreadStart [0x0x7fff8cf3c34c+44]
+
+📸 Screenshot saved: reports/screens\script_Validation for RSAT 6_test_20250715_173023.png
+ ❌ Validation Failed 
+Validation step logged for: Title
+Attempt 1 failed for xpath : (//button[@data-dyn-controlname='SystemDefinedCloseButton'])[1]
+Successfully clicked button at index 2
+Successfully clicked button at index 1
+✅ Test case passed
+📸 Screenshot saved: reports/screens\script_Validation for RSAT 6_test_20250715_173028.png
+🎥 Saved recording: reports/recordings\script_Validation for RSAT 6_test_172950.mp4

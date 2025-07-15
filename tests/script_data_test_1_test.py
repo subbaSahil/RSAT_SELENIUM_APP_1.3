@@ -31,9 +31,9 @@ def test(data):
         nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Dimensions']")
 # Clicking navigation: Financial dimensions
         base.steps_count +=1
-        nav4 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Financial dimensions']",base.steps_count, "Go to General ledger > Chart of accounts > Dimensions > Financial dimensions.")
+        nav4 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Financial dimensions']")
         time.sleep(3)
-        Interactions.assert_navigation(driver,nav1, nav2, nav3, nav4)
+        Interactions.assert_navigation(driver,base.steps_count,nav1, "123", nav3, nav4)
         base.steps_count +=1
         if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='Close']")):
             Interactions.wait_and_click(driver, By.XPATH, "//button[@name='Close']",base.steps_count, "Click Close.")

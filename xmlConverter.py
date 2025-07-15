@@ -29,6 +29,7 @@ def extract_user_actions(input_xml):
         navigation_path = []
         annotations_elem = None  # To store annotations if "Close the page."
         command_name = ''
+        useraction = ''
  
         if node is not None:
             desc_elem = node.find(".//Description", namespaces=namespaces)
@@ -76,6 +77,11 @@ def extract_user_actions(input_xml):
                 direct_value = node.find(".//Value", namespaces=namespaces)
                 if direct_value is not None and direct_value.text:
                     value = direct_value.text.strip()
+
+            user_action_type_elem = node.find("UserActionType", namespaces=namespaces)
+            if user_action_type_elem is not None and user_action_type_elem.text:
+                useraction  = user_action_type_elem.text
+ 
  
         # Add to dictionary
         if ref not in actions_dict:
@@ -87,7 +93,8 @@ def extract_user_actions(input_xml):
                 "Value": value,
                 "NavigationPath": navigation_path,
                 "Annotations": annotations_elem , # store only if it's for "Close the page."
-                "command_name": command_name
+                "command_name": command_name,
+                "UserActionType": useraction,
             }
  
         for control_name in control_names:
@@ -115,6 +122,7 @@ def extract_user_actions(input_xml):
         ET.SubElement(user_action, "ControlType").text = action_data["ControlType"]
         ET.SubElement(user_action, "Value").text = action_data["Value"]
         ET.SubElement(user_action, "CommandName").text = action_data["command_name"]
+        ET.SubElement(user_action, "UserActionType").text = action_data["UserActionType"]
  
         # Add Annotations only if present
         if action_data["Annotations"] is not None:

@@ -80,6 +80,7 @@ def extract_controls_with_types(root):
         annotation_present = False
         second_word = None
         command_name = None
+        user_action = None
         
         for child in elem:
             tag = child.tag.split('}')[-1]
@@ -104,6 +105,8 @@ def extract_controls_with_types(root):
                 annotation_present = len(child.findall(".//*")) > 0
             elif tag == "CommandName":
                 command_name = child.text.strip() if child.text else None
+            elif tag == "UserActionType":
+                user_action = child.text.strip() if child.text else None
      
         if control_type == "formrunpersonalizationtoolbarcontrol" and description and description.lower().startswith("click "):
             parts = description.split()
@@ -111,7 +114,6 @@ def extract_controls_with_types(root):
                 second_word = parts[1]
                 if second_word.lower() == "close":
                     continue
-
         controls.append({
             "label": label or "",
             "name": control_name,
@@ -122,9 +124,9 @@ def extract_controls_with_types(root):
             "description": description or "", 
             "annotation_present": annotation_present,
             "second_word": second_word or "",
-            "command_name": command_name or ""
+            "command_name": command_name or "",
+            "userActionType":user_action or ""
         })
-
     return controls
 
 def generate_selenium_script(controls):
@@ -177,7 +179,27 @@ def generate_selenium_script(controls):
         description = control["description"]
         second_word = control["second_word"]
         command_name = control["command_name"]
+        user_action = control["userActionType"]
         
+        if user_action.lower() == "validation":
+            lines.append(f"        base.steps_count += 1")
+            # lines.append(f"        Interactions.validation(\"{label}\", \"{value}\", base.steps_count, \"{description}\")")
+           
+            if value in description and value!= "":
+                lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that the value for '{label}' is :'{value}'\", \"Validate '{label}' field for 'current value'\", \"{value}\", \"\")")
+                lines.append(f"        print(\"Validation step logged for: {label} , value : {value}\")")
+            elif value == "true" and "enabled" in description:
+                lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that '{label}' is : 'enabled' \", \"Validate '{label}' field for 'enabled' \", \"{value}\", \"\")")
+                lines.append(f"        print(\"Validation step logged for: {label} is 'Enabled'\")")
+            elif value== "false" and "read" in description:
+                lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that '{label}' is : 'read-only'\", \"Validate '{label}' field for 'read-only'\", \"{value}\", \"\")")
+                lines.append(f"        print(\"Validation step logged for: {label} is 'Readonly'\")")
+            else:
+                lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that {label} for : {value} '\", \"validate {label}\", \"{value}\", \"invalid\")")
+                lines.append(f"        print(\"Validation step logged for: {label}\")")
+                lines.append(f"        assert(False, \"Validation failed for {label}: expected {value}\")")
+            continue
+
         if description.startswith("Go to"):
             first_occurence_of_navigation = True
         
@@ -205,7 +227,7 @@ def generate_selenium_script(controls):
                         lines.append(f"# Clicking navigation: {key}")
                         if is_last:
                             lines.append("        base.steps_count +=1")
-                            lines.append(f"        {nav_name} = Interactions.click_nav(driver, By.XPATH, \"{navigation_xpath}\", base.steps_count, \"{description.strip()}\")")
+                            lines.append(f"        {nav_name} = Interactions.click_nav(driver, By.XPATH, \"{navigation_xpath}\")")
                         else:
                             lines.append(f"        {nav_name} = Interactions.click_nav(driver, By.XPATH, \"{navigation_xpath}\")")
                         continue
@@ -216,14 +238,14 @@ def generate_selenium_script(controls):
                         lines.append(f"# Clicking navigation: {key}")
                         if is_last:
                             lines.append(f"        base.steps_count +=1")
-                            lines.append(f"        {nav_name} = Interactions.click_nav(driver, By.XPATH, \"{navigation_xpath}\",base.steps_count, \"{description.strip()}\")")
+                            lines.append(f"        {nav_name} = Interactions.click_nav(driver, By.XPATH, \"{navigation_xpath}\")")
                         else:
                             lines.append(f"        {nav_name} = Interactions.click_nav(driver, By.XPATH, \"{navigation_xpath}\")")
                     
                     nav_count+=1               
                 lines.append("        time.sleep(3)")
                 assert_args = ", ".join(nav_name_array)
-                lines.append(f"        Interactions.assert_navigation(driver,{assert_args})")
+                lines.append(f"        Interactions.assert_navigation(driver, base.steps_count, {assert_args})")
             elif description == "Click Edit.":
                 new_or_edit_or_save = "Edit"
             elif description == "Click New.":
@@ -261,6 +283,7 @@ def generate_selenium_script(controls):
                         lines.append("# Select Grid to add a field to it")
                         lines.append("        Interactions.wait_and_click(driver, By.XPATH, \"//button[@aria-label='Grid options']\")")
                         lines.append(f"        Interactions.wait_and_click(driver, By.XPATH, \"{xpath}\")")
+
 
             xpath = generate_xpath_from_control(ctype, name,label, description, value,second_word)
             multi_input_desc = [

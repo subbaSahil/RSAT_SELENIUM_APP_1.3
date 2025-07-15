@@ -76,78 +76,62 @@ from openpyxl.styles import Font, PatternFill
 #     wb.save(file_path)
 
 
-def log_interaction(step_no, action, field, value="", status="Pass"):
+def log_interaction(step_no, action, field, value="", status=""):
 
     file_path = os.path.join("reports", "reports.xlsx")
-
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
- 
     headers = ["Step", "Action", "Field", "Value", "Status"]
- 
     if os.path.exists(file_path):
-
         wb = load_workbook(file_path)
-
         ws = wb.active
-
         if [cell.value for cell in ws[1]] != headers:
-
             ws.delete_rows(1)
-
             ws.append(headers)
-
     else:
-
         wb = Workbook()
-
         ws = wb.active
-
         ws.title = "Test Log"
-
         ws.append(headers)
- 
+    
+
     # ✅ Insert a blank row before a new test case starts
-
     if str(step_no).strip() == "1" and ws.max_row > 1:
-
         ws.append(["", "", "", "", ""])  # Blank row to separate test cases
- 
-    # ⛔ Skip rows where only status is "Pass" and everything else is empty
 
     if (status.lower() == "pass" and
-
         (not str(step_no).strip()) and
-
         (not str(action).strip()) and
-
         (not str(field).strip()) and
-
         (not str(value).strip())):
-
         return  # Skip logging this row
- 
-    # ✅ Append actual data
-
     ws.append([step_no, action, field, value, status])
-
     status_cell = ws.cell(row=ws.max_row, column=5)
- 
-    if status.lower() == "pass":
 
+    if status.lower() == "invalid":
         status_cell.fill = PatternFill(start_color="FFC6EFCE", end_color="FFC6EFCE", fill_type="solid")
-
         status_cell.font = Font(color="FF006100", bold=True)
+        status_cell.value = "Validation failed , as expected value mismatched"
+        print(f" ❌ Validation Failed ")
+    elif "validate" in str(action).lower():
+        status_cell.fill = PatternFill(start_color="FFCCE5FF", end_color="FFCCE5FF", fill_type="solid")  # light blue
+        status_cell.font = Font(color="FF003366", bold=True)
+        status_cell.value = "Validated"
+       
+        if value=="true":
+            print(f"✅  Validation Successful : field is enabled")
+        elif value=="false":
+            print(f"✅  Validation Successful : field is read-only")
+        else:
+            print(f"✅  Validation Successful - {value}")
 
+    elif status.lower() == "pass":
+        status_cell.fill = PatternFill(start_color="FFC6EFCE", end_color="FFC6EFCE", fill_type="solid")
+        status_cell.font = Font(color="FF006100", bold=True)
         status_cell.value = "Pass"
-
     elif status.lower() == "fail":
-
         status_cell.fill = PatternFill(start_color="FFFFC7CE", end_color="FFFFC7CE", fill_type="solid")
-
         status_cell.font = Font(color="FF9C0006", bold=True)
-
         status_cell.value = "Fail"
- 
     wb.save(file_path)
  
 
@@ -187,7 +171,7 @@ def wait_and_click(driver, by, base_xpath, step_num = "",description="",timeout=
             ActionChains(driver).move_to_element(element).perform()
             element.click()
             if(description!="" and step_num != ""):
-                log_interaction(step_num, "Click", description)
+                log_interaction(step_num, "Click", description,"", "Pass")
             print(f"✅ Clicked element with base_xpath: {base_xpath}")
             return True
     except Exception as e:
@@ -249,7 +233,7 @@ def wait_and_send_keys(driver, by, value, keys, step_num = "" ,description="",ti
         element.click()
         element.send_keys(keys)
         if(description != "" and step_num != ""):
-            log_interaction(step_num, "Send Keys", description, keys)
+            log_interaction(step_num, "Send Keys", description, keys, "Pass")
         time.sleep(1)
     except Exception as e:
         last_failed_xpath = value
@@ -307,7 +291,7 @@ def clear_input_field_and_send_keys(driver, by, value, keys, step_num="",descrip
         element.send_keys(Keys.DELETE)
         element.send_keys(keys)
         if(description != "" and step_num != ""):
-            log_interaction(step_num, "Send Keys", description, keys)
+            log_interaction(step_num, "Send Keys", description, keys, "Pass")
         # base_test.steps_count += 1
         # print(f"✅ Successfully entered text at XPath: {value}")
         time.sleep(1)  # Give the page time to register input
@@ -785,7 +769,7 @@ def take_screenshot_on_failure(driver):
 
 
 
-def assert_navigation(driver, *expected_items):
+def assert_navigation(driver,step_num="", *expected_items ):
     navigation_xpath = "//ol[@class='navigationBar-crumbList']//li"
     navigated_items = driver.find_elements(By.XPATH, navigation_xpath)
  
@@ -802,11 +786,13 @@ def assert_navigation(driver, *expected_items):
     if expected_path != actual_path:
         take_screenshot_on_failure(driver)
         raise AssertionError(f"mismatch.\nExpected: {expected_path}\nFound: {actual_path}")
- 
+    # desc = ""
+    desc = " > ".join(expected_path)
+    log_interaction(step_num, "Navigate", desc,"", "Pass")
     print("Navigation verified successfully.")
  
  
-def click_nav(driver, by, base_xpath,step_num = "",description="", timeout=10, enable_fallback=True):
+def click_nav(driver, by, base_xpath, timeout=10):
     global last_failed_xpath
     try:
         element = WebDriverWait(driver, timeout).until(
@@ -818,10 +804,8 @@ def click_nav(driver, by, base_xpath,step_num = "",description="", timeout=10, e
             WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, base_xpath)))
             ActionChains(driver).move_to_element(element).perform()
             element.click()
-            print(f"✅ Clicked element with base_xpath: {base_xpath}")
-            if(description!="" and step_num != ""):
-                        log_interaction(step_num, "Click", description)
-            # return True
+            # wait_and_click(driver, by, base_xpath, step_num, description, timeout, enable_fallback)
+            # print(f"✅ Clicked element with base_xpath: {base_xpath}")
         return text if text else base_xpath
     except Exception as e:
         print(f"⚠️ Primary click failed on base_xpath: {base_xpath} - {str(e)}")
@@ -829,3 +813,12 @@ def click_nav(driver, by, base_xpath,step_num = "",description="", timeout=10, e
         take_screenshot_on_failure(driver)
         return False
  
+# def validation(label,value,step_num="",description=""):
+#     if value in description:
+#         log_interaction(step_num, "Validation", label, value, "Pass")
+#     elif value == "true" and "enabled" in description:
+#         log_interaction(step_num, "Validation", label, value, "Pass")
+#     elif value== "false" and "read" in description:
+#         log_interaction(step_num, "Validation", label, value, "Pass")
+#     else:
+#         log_interaction(step_num, "Validation", label, value, "failed")
