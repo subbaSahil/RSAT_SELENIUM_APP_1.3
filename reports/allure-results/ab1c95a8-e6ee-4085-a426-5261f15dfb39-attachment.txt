@@ -1,7 +1,0 @@
-Login Successful as user1
-✅ Clicked element with base_xpath: //div[@aria-label='Modules']
-Navigation found: ['Product information management', 'Products', 'All products and product masters']
-Navigation verified successfully.
-Press data to select: ❌ Test case failed
-📸 Screenshot saved: reports/screens\script_Validation for RSAT 6_test_20250715_165008.png
-🗑️ Discarded failed test recording.

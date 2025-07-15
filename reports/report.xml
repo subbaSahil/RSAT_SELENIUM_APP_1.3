@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="59.091" timestamp="2025-07-15T17:29:33.279827+05:30" hostname="PSDLAP373"><testcase classname="tests.script_Validation for RSAT 6_test" name="test" time="58.417" /></testsuite></testsuites>
