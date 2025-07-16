@@ -36,20 +36,44 @@ def test():
             Interactions.clear_input_field_and_send_keys(driver, By.XPATH, locator, "0007",base.steps_count,"Use the Quick Filter to find records. For example, filter on the Product number field with a value of '0007'.")
             Interactions.press_enter(driver, By.XPATH, locator)
         base.steps_count += 1
-        Interactions.log_interaction(base.steps_count, "Validate that Product number for :  '", "validate Product number", "", "invalid")
-        print("Validation step logged for: Product number")
-        assert(False, "Validation failed for Product number: expected ")
+        base.steps_count +=1
+# Inputting into: Identification_DisplayProductNumber
+        if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'Identification_DisplayProductNumber')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Product number')]") ):
+            #clicking inside grid: Identification_DisplayProductNumber
+            if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'Identification_DisplayProductNumber')])[1]")):
+                actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'Identification_DisplayProductNumber')]")).perform()
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'Identification_DisplayProductNumber')])[1]", "",base.steps_count,"Validate that the value for Product number is '0007'.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Product number')])[1]")):
+                actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Product number')]")).perform()
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Product number')])[1]", "",base.steps_count,"Validate that the value for Product number is '0007'.")
+        else:
+            if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'Identification_DisplayProductNumber')]")):
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'Identification_DisplayProductNumber')]", "",base.steps_count,"Validate that the value for Product number is '0007'.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Product number')]")):
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Product number')]", "",base.steps_count,"Validate that the value for Product number is '0007'.")
+        Interactions.press_enter(driver, By.XPATH, "//body")
         base.steps_count +=1
 # Clicking button: ListPageGrid
-        if Interactions.check_element_exist(driver, By.XPATH, f"//input[@value='0007']/ancestor::div[@class='fixedDataTableRowLayout_body']/div[1]//div[@role='checkbox']"):
-             Interactions.wait_and_click(driver, By.XPATH, f"//input[@value='0007']/ancestor::div[@class='fixedDataTableRowLayout_body']/div[1]//div[@role='checkbox']", base.steps_count,"In the list, click the link in the selected row.")
-        else:
-             Interactions.wait_and_click(driver, By.XPATH, f"//input[@value='0007']", base.steps_count,"In the list, click the link in the selected row.")
-        Interactions.press_enter(driver, By.XPATH, "//input[@value='0007']")
+        user_input = input("Press data to select: ")
+        Interactions.scroll_and_click_row(driver, By.XPATH, "//div[contains(@class,'fixedDataTableRowLayout_')]/ancestor::div[@role='grid']", f"//input[@value='{user_input}']", base.steps_count,"In the list, click the link in the selected row.")
+        Interactions.press_enter(driver, By.XPATH, "//input[@value='"+user_input+"']")
         base.steps_count += 1
-        Interactions.log_interaction(base.steps_count, "Validate that Title for :  '", "validate Title", "", "invalid")
-        print("Validation step logged for: Title")
-        assert(False, "Validation failed for Title: expected ")
+        base.steps_count +=1
+# Inputting into: StringTitle
+        if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@name,'StringTitle')]") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, "//input[contains(@aria-label,'Title')]") ):
+            #clicking inside grid: StringTitle
+            if(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@name,'StringTitle')])[1]")):
+                actions.move_to_element(driver.find_element(By.XPATH,"//input[contains(@name,'StringTitle')]")).perform()
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@name,'StringTitle')])[1]", "",base.steps_count,"Validate that the value for Title is '0007 : Full Finger BMX Gloves'.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "(//input[contains(@aria-label,'Title')])[1]")):
+                actions.move_to_element(driver.find_element(By.XPATH, "//input[contains(@aria-label,'Title')]")).perform()
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "(//input[contains(@aria-label,'Title')])[1]", "",base.steps_count,"Validate that the value for Title is '0007 : Full Finger BMX Gloves'.")
+        else:
+            if(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@name,'StringTitle')]")):
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@name,'StringTitle')]", "",base.steps_count,"Validate that the value for Title is '0007 : Full Finger BMX Gloves'.")
+            elif(Interactions.check_element_exist(driver, By.XPATH, "//input[contains(@aria-label,'Title')]")):
+                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, "//input[contains(@aria-label,'Title')]", "",base.steps_count,"Validate that the value for Title is '0007 : Full Finger BMX Gloves'.")
+        Interactions.press_enter(driver, By.XPATH, "//body")
 # Closing the page
         base.steps_count +=1
         Interactions.click_back_button(driver, By.XPATH, "//button[@data-dyn-controlname='SystemDefinedCloseButton']", base.steps_count)

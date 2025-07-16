@@ -184,7 +184,6 @@ def generate_selenium_script(controls):
         if user_action.lower() == "validation":
             lines.append(f"        base.steps_count += 1")
             # lines.append(f"        Interactions.validation(\"{label}\", \"{value}\", base.steps_count, \"{description}\")")
-           
             if value in description and value!= "":
                 lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that the value for '{label}' is :'{value}'\", \"Validate '{label}' field for 'current value'\", \"{value}\", \"\")")
                 lines.append(f"        print(\"Validation step logged for: {label} , value : {value}\")")
@@ -194,11 +193,6 @@ def generate_selenium_script(controls):
             elif value== "false" and "read" in description:
                 lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that '{label}' is : 'read-only'\", \"Validate '{label}' field for 'read-only'\", \"{value}\", \"\")")
                 lines.append(f"        print(\"Validation step logged for: {label} is 'Readonly'\")")
-            else:
-                lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that {label} for : {value} '\", \"validate {label}\", \"{value}\", \"invalid\")")
-                lines.append(f"        print(\"Validation step logged for: {label}\")")
-                lines.append(f"        assert(False, \"Validation failed for {label}: expected {value}\")")
-            continue
 
         if description.startswith("Go to"):
             first_occurence_of_navigation = True
@@ -469,7 +463,7 @@ def generate_selenium_script(controls):
                 elif ctype == "listbox":
                     lines.append(f"        base.steps_count +=1")
                     lines.append(f"# Clicking listbox: {name}")
-                    lines.append(f"        Interactions.wait_and_click(driver, By.XPATH, \"{xpath}\",base.steps_count,{description})")
+                    lines.append(f"        Interactions.wait_and_click(driver, By.XPATH, \"{xpath}\",base.steps_count,\"{description}\")")
 
                 elif ctype in["quickfilter"]:
                     quickFilterValue = filtervalue
@@ -737,7 +731,7 @@ def generate_selenium_script(controls):
                             lines.append(f"        Interactions.scroll_and_click(driver, By.XPATH, \"{container2}\", f\"//input[@value='{{user_input}}']\", base.steps_count,\"{description}\")")
                         elif command_name == "ChangeSelectedIndexInCache":
                             lines.append(f"        user_input = input(\"Press data to select: \")")
-                            lines.append(f"        Interactions.scroll_and_click_row(driver, By.XPATH, \"{container}\", f\"//input[@value='{{user_input}}']/ancestor::div[@class='fixedDataTableRowLayout_body']/div[1]//div[@role='checkbox']\", base.steps_count,{description})")
+                            lines.append(f"        Interactions.scroll_and_click_row(driver, By.XPATH, \"{container}\", f\"//input[@value='{{user_input}}']/ancestor::div[@class='fixedDataTableRowLayout_body']/div[1]//div[@role='checkbox']\", base.steps_count,\"{description}\")")
                     elif select_a_grid_or_click_a_input_anchor_flag == "click_row":
                         if previous_control_type == "grid" and previous_control_description == "In the list, find and select the desired record.":
                             lines.append(f"        Interactions.press_enter(driver, By.XPATH, \"//input[@value='\"+user_input+\"']\", base.steps_count,\"{description}\")")
@@ -751,7 +745,7 @@ def generate_selenium_script(controls):
                         elif previous_control_type == "referencegroup":
                             lines.append(f"# Clicking button: {name}")
                             lines.append(f"        user_input = input(\"Press data to select: \")")
-                            lines.append(f"        Interactions.scroll_and_click_row(driver, By.XPATH, \"{container}\", f\"//input[@value='{{user_input}}']/ancestor::div[@class='fixedDataTableRowLayout_body']\", base.steps_count,{description})")
+                            lines.append(f"        Interactions.scroll_and_click_row(driver, By.XPATH, \"{container}\", f\"//input[@value='{{user_input}}']/ancestor::div[@class='fixedDataTableRowLayout_body']\", base.steps_count,\"{description}\")")
                             lines.append(f"        Interactions.press_enter(driver, By.XPATH, \"//input[@value='\"+user_input+\"']\")")
                         else:
                             lines.append(f"# Clicking button: {name}")

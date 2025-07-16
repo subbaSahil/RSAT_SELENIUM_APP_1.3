@@ -822,3 +822,11 @@ def click_nav(driver, by, base_xpath, timeout=10):
 #         log_interaction(step_num, "Validation", label, value, "Pass")
 #     else:
 #         log_interaction(step_num, "Validation", label, value, "failed")
+
+
+def func(a,b):
+    if a < b:
+        return a
+    return b
+    print(a)
+    
