@@ -22,9 +22,9 @@ def test():
         nav2 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Purchase orders']")
 # Clicking navigation: All purchase orders
         base.steps_count +=1
-        nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='All purchase orders']",base.steps_count, "Go to Procurement and sourcing > Purchase orders > All purchase orders.")
+        nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='All purchase orders']")
         time.sleep(3)
-        Interactions.assert_navigation(driver,nav1, nav2, nav3)
+        Interactions.assert_navigation(driver, base.steps_count,nav1, nav2, nav3)
         base.steps_count +=1
 # Clicking filter manager: SystemDefinedFilterManager
         column_to_open = "Purchase order"

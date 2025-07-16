@@ -25,9 +25,19 @@ def pytest_runtest_makereport(item, call):
  
         # ✅ Recording Link
         recording = get_latest_file("reports/recordings", ".mp4")
+        
         if recording and os.path.exists(recording):
             rel_recording = os.path.relpath(recording, start="reports")
             extra.append(extras.url(rel_recording, name="🎥 Recording"))
  
         report.extra = extra
+
+        if report.outcome == "passed":
+            recording = get_latest_file("reports/recordings", ".mp4")
+            if recording and os.path.exists(recording):
+                rel_recording = os.path.relpath(recording, start="reports")
+                extra.append(extras.url(rel_recording, name="🎥 Recording"))
+ 
+        report.extra = extra
+
  

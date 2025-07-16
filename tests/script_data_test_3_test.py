@@ -31,9 +31,9 @@ def test(data):
         nav2 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Charges setup']")
 # Clicking navigation: Auto charges
         base.steps_count +=1
-        nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Auto charges']",base.steps_count, "Go to Accounts receivable > Charges setup > Auto charges.")
+        nav3 = Interactions.click_nav(driver, By.XPATH, "//a[@data-dyn-title='Auto charges']")
         time.sleep(3)
-        Interactions.assert_navigation(driver,nav1, nav2, nav3)
+        Interactions.assert_navigation(driver,base.steps_count,nav1, nav2, nav3)
         base.steps_count +=1
         if(Interactions.check_element_exist(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']")):
             Interactions.wait_and_click(driver, By.XPATH, "//button[@name='SystemDefinedNewButton']",base.steps_count, "Click New.")
