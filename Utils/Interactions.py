@@ -406,7 +406,8 @@ def extract_dates(date_str):
 
 
 def click_back_button(driver, by, base_xpath,timeout=10):
-    for i in range(1,100):
+    time.sleep(3)
+    for i in range(1,10):
         # print("Attempt:", i)
         xpath = f"({base_xpath})[{i}]"
         try:
@@ -771,6 +772,9 @@ def take_screenshot_on_failure(driver):
 
 def assert_navigation(driver,step_num="", *expected_items ):
     navigation_xpath = "//ol[@class='navigationBar-crumbList']//li"
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, navigation_xpath))
+    )
     navigated_items = driver.find_elements(By.XPATH, navigation_xpath)
  
     navigated_items_texts = [item.text.strip() for item in navigated_items]
@@ -781,15 +785,22 @@ def assert_navigation(driver,step_num="", *expected_items ):
  
     if len(navigated_items_texts) < len(expected_path):
         take_screenshot_on_failure(driver)
+        log_interaction(step_num, "Navigate", desc,"", "Fail")
+        print("Navigation verification failed.")
         raise AssertionError(f"Not enough navigation items found.\nExpected at least {len(expected_path)}, got {len(navigated_items_texts)}\nNavigation: {navigated_items_texts}")
  
     if expected_path != actual_path:
         take_screenshot_on_failure(driver)
+        desc = " > ".join(expected_path)
+        log_interaction(step_num, "Navigate", desc,"", "Fail")
+        print("Navigation verification failed.")
         raise AssertionError(f"mismatch.\nExpected: {expected_path}\nFound: {actual_path}")
+       
     # desc = ""
     desc = " > ".join(expected_path)
     log_interaction(step_num, "Navigate", desc,"", "Pass")
     print("Navigation verified successfully.")
+ 
  
  
 def click_nav(driver, by, base_xpath, timeout=10):
