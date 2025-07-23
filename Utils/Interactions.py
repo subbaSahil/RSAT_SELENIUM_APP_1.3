@@ -188,17 +188,16 @@ def wait_and_click(driver, by, base_xpath, step_num = "",description="",timeout=
                     )
                     driver.execute_script("arguments[0].click();", fallback_element)
                     if(description!="" and step_num != ""):
-                        log_interaction(step_num, base_xpath, description)
+                        log_interaction(step_num, "Click",description, "", "Pass")
                     return True
                 except Exception as ex:
                     print(f"❌ Attempt {i} failed for xpath: {indexed_xpath} - {str(ex)}")
         
         print(f"❌ All attempts failed for base_xpath: {base_xpath}")
         take_screenshot_on_failure(driver)
-        log_interaction(step_num, base_xpath, description, "","failed")
+        log_interaction(step_num, "Click", description, last_failed_xpath,"failed")
         last_failed_xpath = base_xpath
-        raise AssertionError(f"[{step_num}] Click failed on element: {description or base_xpath}")
-        
+        raise Exception(f"[{step_num}] Click failed on element: {description or base_xpath} - {last_failed_xpath}")        
 def hover_on_an_element(driver, by, value, timeout=10):
     element = WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
     ActionChains(driver).move_to_element(element).perform()
@@ -241,6 +240,7 @@ def wait_and_send_keys(driver, by, value, keys, step_num = "" ,description="",ti
         log_interaction(step_num, value, description, keys, "Failed")
         print(f"❌ Error in wait_and_send_keys at XPath: {value} - {str(e)}")
         take_screenshot_on_failure(driver)
+        raise Exception(f"[{step_num}] Failed to send keys to element: {description or value}")
 
 def check_element_exist(driver, by, value, timeout=10):
     try:
@@ -277,14 +277,15 @@ def clear_input_field_and_send_keys(driver, by, value, keys, step_num="",descrip
         element.send_keys(Keys.DELETE)
         element.send_keys(keys)
         if(description != "" and step_num != ""):
-            log_interaction(step_num, value, description, keys, "Pass")
+            log_interaction(step_num, "Send Keys", description, "", "Pass")
         time.sleep(1)  # Give the page time to register input
 
     except Exception as e:
         last_failed_xpath = value
-        log_interaction(step_num, value, description, keys, "Failed")
+        log_interaction(step_num, "Send Keys", description, keys, "Failed")
         print(f"❌ Error in clear_input_field_and_send_keys at XPath: {value} - {str(e)}")
         take_screenshot_on_failure(driver)
+        raise Exception(f"[{step_num}] Failed to send keys to element: {description or value}")
 
 
 def no_of_elements_present(driver, by, value, timeout=20):
