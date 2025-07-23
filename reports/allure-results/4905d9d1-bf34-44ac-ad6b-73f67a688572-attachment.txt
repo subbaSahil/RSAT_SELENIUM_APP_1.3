@@ -1,0 +1,11 @@
+Login Successful as user1
+✅ Clicked element with base_xpath: //div[@aria-label='Modules']
+Navigation found: ['Procurement and sourcing', 'Purchase orders', 'All purchase orders']
+Navigation verified successfully.
+✅ Clicked element with base_xpath: //div[text()='Purchase order']
+✅ Clicked element with base_xpath: //span[contains(@class,'button-label-dropDown')]/ancestor::button[contains(@class,'dynamicsButton')][ancestor::div[@class='filterFieldContainer']//input[contains(@aria-label,'Filter field: Purchase order')]]
+✅ Clicked element with base_xpath: //input[contains(@aria-label,'Filter field: Purchase order,')]/ancestor::div[@class='columnHeader-popup sysPopup']/ancestor::body/child::div[@class='sysPopup flyoutButton-flyOut layout-root-scope']//button//span[text()='is exactly']
+✅ Clicked element with base_xpath: //input[contains(@aria-label,'Filter field: Purchase order, operator: ')]//ancestor::div/child::div[@class='columnHeaderPopup-buttons']//span[text()='Apply']/ancestor::button
+Press data to select: ❌ Test case failed
+📸 Screenshot saved: reports/screens\script_data_test_2_test_20250721_192830.png
+🗑️ Discarded failed test recording.

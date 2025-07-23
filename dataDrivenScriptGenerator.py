@@ -129,7 +129,7 @@ def extract_controls_with_types(root):
         })
     return controls
 
-def generate_selenium_script(controls):
+def generate_selenium_script(controls, data_sheet_name):
     # new_or_edit_or_save = ""
     # input_label = ""
     # input_name = ""
@@ -159,8 +159,11 @@ def generate_selenium_script(controls):
 "from Utils import Interactions",
 "from Utils.screenRecorder import ScreenRecorder",
 "import time",
+"from Utils.getExcelData import read_all_test_data",
+f"test_data = read_all_test_data(\"Data\\{data_sheet_name}\",\"DynamicFields\")",
 "@pytest.mark.ui",
-"def test():",
+"@pytest.mark.parametrize(\"data\", test_data)",
+"def test(data):",
 "    base = BaseTest(\"user1\",incognito=True)",
 "    driver = base.driver",
 "    actions = base.actions",
@@ -182,8 +185,9 @@ def generate_selenium_script(controls):
         user_action = control["userActionType"]
         
         if user_action.lower() == "validation":
-            lines.append(f"        base.steps_count += 1")
-            if value in description:
+            # lines.append(f"        base.steps_count += 1")
+            # lines.append(f"        Interactions.validation(\"{label}\", \"{value}\", base.steps_count, \"{description}\")")
+            if value in description and value!= "":
                 lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that the value for '{label}' is :'{value}'\", \"Validate '{label}' field for 'current value'\", \"{value}\", \"\")")
                 lines.append(f"        print(\"Validation step logged for: {label} , value : {value}\")")
             elif value == "true" and "enabled" in description:
@@ -192,11 +196,6 @@ def generate_selenium_script(controls):
             elif value== "false" and "read" in description:
                 lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that '{label}' is : 'read-only'\", \"Validate '{label}' field for 'read-only'\", \"{value}\", \"\")")
                 lines.append(f"        print(\"Validation step logged for: {label} is 'Readonly'\")")
-            else:
-                lines.append(f"        Interactions.log_interaction(base.steps_count, \"Validate that {label} for : {value} '\", \"validate {label}\", \"{value}\", \"invalid\")")
-                lines.append(f"        print(\"Validation step logged for: {label}\")")
-                lines.append(f"        assert False, \"Validation failed for {label}: expected {value}\"")
-            continue
 
         if description.startswith("Go to"):
             first_occurence_of_navigation = True
@@ -327,7 +326,7 @@ def generate_selenium_script(controls):
                         lines.append(f"        elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[1]}\")):")
                         lines.append(f"            Interactions.wait_and_click(driver, By.XPATH, \"{xpath[1]}\",base.steps_count,\"{description}\")")
                         lines.append(f"        else:")
-                        lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
+                        lines.append(f"             Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
                     if add_line_flag and ctype == "commandbutton" and description == "Click Add line.":
                         line_item_container = "//div[text()='Item number'  or text()='Line number' ]/ancestor::div[contains(@class,'fixedDataTableRowLayout_')]/ancestor::div[@role='grid']"
                         line_item_xpath = "//div[text()='Item number'  or text()='Line number' ]/ancestor::div[contains(@class,'fixedDataTableRowLayout_')]/ancestor::div[@role='grid']//input[contains(@aria-label,'Line number')]"
@@ -357,7 +356,7 @@ def generate_selenium_script(controls):
                     lines.append(f"        elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[1]}\")):")
                     lines.append(f"            Interactions.wait_and_click(driver, By.XPATH, \"{xpath[1]}\",base.steps_count,\"{description}\")")     
                     lines.append(f"        else:")
-                    lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
+                    lines.append(f"             Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
                 elif ctype == "segmentedentry":
                     # value = ""
                     lines.append(f"        base.steps_count +=1")
@@ -368,10 +367,10 @@ def generate_selenium_script(controls):
                         if previous_control_type == "grid" and "LedgerDimension" in previous_control_name:
                              account_input = f"(//div[@data-dyn-controlname='{name}']//input)[{previous_user_action_value}]"
                              lines.append(f"        actions.move_to_element(driver.find_element(By.XPATH,\"{account_input}\")).perform()")
-                             lines.append(f"        Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{account_input}\", \"{value}\",base.steps_count,\"{description}\")") 
+                             lines.append(f"        Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{account_input}\", data['{label}/{name}'],base.steps_count,\"{description}\")") 
                         else:
                             account_input = f"(//div[@data-dyn-controlname='{name}']//input)[1]"
-                            lines.append(f"        Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{account_input}\", \"{value}\",base.steps_count,\"{description}\")")
+                            lines.append(f"        Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{account_input}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                     else:
                         lines.append(f"# Inputting into: {name}")
                         lines.append(f"        base.steps_count +=1")
@@ -379,28 +378,28 @@ def generate_selenium_script(controls):
                         lines.append(f"            #clicking inside grid: {name}")
                         lines.append(f"            if(Interactions.check_element_exist(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH,\"{xpath[0]}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH, \"{xpath[1]}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[3]}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH, \"{'('+xpath[3] +')[1]'}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[3]}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[3]}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{'('+xpath[2] +')[1]'}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH, \"{'('+xpath[2] +')[1]'}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[2] +')[1]'}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[2] +')[1]'}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            else:")
                         lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                         lines.append(f"        else:")
                         lines.append(f"            if(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[0]}\")):")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[0]}\", \"{value}\",base.steps_count, \"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[0]}\", data['{label}/{name}'],base.steps_count, \"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[1]}\")):")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[1]}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[1]}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[3]}\")):")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[3]}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[3]}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[2]}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH, \"{xpath[2]}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[2]}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[2]}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            else:")
                         lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                 elif  ctype in ["input" , "referencegroup"] :
@@ -427,20 +426,20 @@ def generate_selenium_script(controls):
                             lines.append(f"            Interactions.press_enter(driver, By.XPATH, \"//div[contains(@data-dyn-savedtooltip,'\"+user_input+\"')]/preceding-sibling::label[text()='{label}']\")")
                             lines.append(f"        elif Interactions.check_element_exist(driver, By.XPATH, \"//input[contains(@title,'\"+user_input+\"')]\"):")
                             lines.append(f"            Interactions.wait_and_click(driver, By.XPATH,  \"//input[contains(@title,'\"+user_input+\"')]\",base.steps_count,\"{description}\")")
-                            lines.append(f"            Interactions.press_enter(driver, By.XPATH, \"//input[contains(@title,'\"+user_input+\"')]\")")
+                            lines.append(f"            Interactions.press_enter(driver, By.XPATH, \"//input[contains(@title,'\"+user_input+\"')\")")
                             lines.append(f"        else:")
-                            lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\", \"Click\")")
+                            lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
                     elif add_line_flag and not dailog_box_line_items:
                         lines.append(f"        if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, \"{xpath[0]}\") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, \"{xpath[1]}\") ):")
                         lines.append(f"        #clicking inside grid: {name}")
                         lines.append("            if(Interactions.check_element_exist(driver, By.XPATH, \"(" + xpath[0] + ")[\" + row_number + \"]\")):")
                         lines.append("                actions.move_to_element(driver.find_element(By.XPATH,\"(" + xpath[0] + ")[\" + row_number + \"]\")).perform()")
-                        lines.append("                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"(" + xpath[0] + ")[\" + row_number + \"]\", \"" + value + f"\", base.steps_count, \"{description}\")")
+                        lines.append("                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"(" + xpath[0] + ")[\" + row_number + \"]\", \"" + 'data[\"'+label+'/'+name+'}\"]' + f"\", base.steps_count, \"{description}\")")
                         lines.append("            elif(Interactions.check_element_exist(driver, By.XPATH, \"(" + xpath[1] + ")[\" + row_number + \"]\")):")
                         lines.append("                actions.move_to_element(driver.find_element(By.XPATH, \"(" + xpath[1] + ")[\" + row_number + \"]\")).perform()")
-                        lines.append("                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"(" + xpath[1] + ")[\" + row_number + \"]\", \"" + value + f"\", base.steps_count, \"{description}\")")
-                        lines.append(f"            else:")
-                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send keys\")")
+                        lines.append("                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"(" + xpath[1] + ")[\" + row_number + \"]\", \"" + 'data[\"'+label+'/'+name+'}\"]' + f"\", base.steps_count, \"{description}\")")
+                        lines.append(f"           else:")
+                        lines.append(f"               Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
                     elif dailog_box_line_items:
                         lines.append(f"        base.steps_count +=1")
                         if new_line_item_in_dailog_box_item:
@@ -454,35 +453,35 @@ def generate_selenium_script(controls):
                         lines.append(f"            target_xpath_1 = f\"{dailog_box_container}//input[contains(@aria-label, 'Line number') and @value='{{line_number}}']/ancestor::div[@role='gridcell']/following-sibling::div{xpath[0]}\"")
                         lines.append(f"            target_xpath_2 = f\"{dailog_box_container}//input[contains(@aria-label, 'Line number') and @value='{{line_number}}']/ancestor::div[@role='gridcell']/following-sibling::div{xpath[1]}\"")
                         lines.append(f"            if Interactions.check_element_exist(driver, By.XPATH, target_xpath_1):")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, target_xpath_1, \"{value}\", base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, target_xpath_1, data['{label}/{name}'], base.steps_count,\"{description}\")")
                         lines.append(f"            elif Interactions.check_element_exist(driver, By.XPATH, target_xpath_2):")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, target_xpath_2, \"{value}\",base.steps_count,\"{description}\")")
-                        lines.append(f"        else:")
-                        lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send keys\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, target_xpath_2, data['{label}/{name}'],base.steps_count,\"{description}\")")
+                        lines.append(f"            else:")
+                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\", \"Send Keys\")")
                     else:
                         lines.append(f"# Inputting into: {name}")
                         lines.append(f"        if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, \"{xpath[0]}\") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, \"{xpath[1]}\") ):")
                         lines.append(f"            #clicking inside grid: {name}")
                         lines.append(f"            if(Interactions.check_element_exist(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH,\"{xpath[0]}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH, \"{xpath[1]}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            else:")
-                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
+                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\", \"Send Keys\")")
                         lines.append(f"        else:")
                         lines.append(f"            if(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[0]}\")):")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[0]}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[0]}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[1]}\")):")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[1]}\", \"{value}\",base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[1]}\", data['{label}/{name}'],base.steps_count,\"{description}\")")
                         lines.append(f"            else:")
                         lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                         lines.append(f"        Interactions.press_enter(driver, By.XPATH, \"//body\")")
                 elif ctype == "listbox":
                     lines.append(f"        base.steps_count +=1")
                     lines.append(f"# Clicking listbox: {name}")
-                    lines.append(f"        Interactions.wait_and_click(driver, By.XPATH, \"{xpath}\",base.steps_count,{description})")
+                    lines.append(f"        Interactions.wait_and_click(driver, By.XPATH, \"{xpath}\",base.steps_count,\"{description}\")")
 
                 elif ctype in["quickfilter"]:
                     quickFilterValue = filtervalue
@@ -528,15 +527,15 @@ def generate_selenium_script(controls):
                         lines.append(f"            elif Interactions.check_element_exist(driver, By.XPATH, target_xpath_2):")
                         lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, target_xpath_2, \"{date}\",base.steps_count,\"{description}\")")
                         lines.append(f"            else:")
-                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
+                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\", \"Send Keys\")")
                     else:   
                         lines.append(f"        if(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[0]}\")):")
                         lines.append(f"            Interactions.get_locator(driver, By.XPATH, \"{xpath[1]}\")")
                         lines.append(f"            Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[0]}\", \"{date}\",base.steps_count,\"{description}\")")
                         lines.append(f"        elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[1]}\")):")
                         lines.append(f"            Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[1]}\", \"{date}\",base.steps_count,\"{description}\")")
-                        lines.append(f"        else:")
-                        lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
+                        lines.append(f"            else:")
+                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                 elif ctype == "real":
                     # value = ""
                     lines.append(f"        base.steps_count +=1")
@@ -544,14 +543,14 @@ def generate_selenium_script(controls):
                     if add_line_flag and not dailog_box_line_items:
                         lines.append(f"        if(Interactions.check_input_ancestor_is_table(driver, By.XPATH, \"{xpath[0]}\") or Interactions.check_input_ancestor_is_table(driver, By.XPATH, \"{xpath[1]}\") ):")
                         lines.append(f"            #clicking inside grid: {name}")
-                        lines.append("            if(Interactions.check_element_exist(driver, By.XPATH, \"(" + xpath[0] + ")[\" + row_number + \"]\")):")
-                        lines.append("                actions.move_to_element(driver.find_element(By.XPATH, \"("+xpath[0]+")[\" + row_number + \"]\")).perform()")
-                        lines.append("                Interactions.wait_and_send_keys(driver, By.XPATH, \"("+xpath[0]+")[\" + row_number + \"]\", \""+ value + f"\", base.steps_count,\"{description}\")")
-                        lines.append("            elif(Interactions.check_element_exist(driver, By.XPATH, \"("+xpath[1]+")[\" + row_number + \"]\")):")
-                        lines.append("                actions.move_to_element(driver.find_element(By.XPATH, \"("+xpath[1]+")[\" + row_number + \"]\")).perform()")
-                        lines.append("                Interactions.wait_and_send_keys(driver, By.XPATH, \"("+xpath[1]+")[\" + row_number + \"]\", \""+ value + f"\", base.steps_count,\"{description}\")")
-                        lines.append("            else:")
-                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
+                        lines.append(f"            if(Interactions.check_element_exist(driver, By.XPATH, \"(" + xpath[0] + ")[\" + row_number + \"]\")):")
+                        lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH, \"("+xpath[0]+")[\" + row_number + \"]\")).perform()")
+                        lines.append(f"                Interactions.wait_and_send_keys(driver, By.XPATH, \"("+xpath[0]+")[\" + row_number + \"]\", \""+ 'data[\"'+label+'/'+name+'}\"]' + f"\", base.steps_count,\"{description}\")")
+                        lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"("+xpath[1]+")[\" + row_number + \"]\")):")
+                        lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH, \"("+xpath[1]+")[\" + row_number + \"]\")).perform()")
+                        lines.append(f"                Interactions.wait_and_send_keys(driver, By.XPATH, \"("+xpath[1]+")[\" + row_number + \"]\", \""+ 'data[\"'+label+'/'+name+'}\"]'+ f"\", base.steps_count,\"{description}\")")
+                        lines.append(f"            else:")
+                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                     elif dailog_box_line_items:
                         if new_line_item_in_dailog_box_item:
                             if new_line_in_dailog_already_exist == False:
@@ -565,10 +564,8 @@ def generate_selenium_script(controls):
                         lines.append(f"            target_xpath_2 = f\"{dailog_box_container}//input[contains(@aria-label, 'Line number') and @value='{{line_number}}']/ancestor::div[@role='gridcell']/following-sibling::div{xpath[1]}\"")
                         lines.append(f"            if Interactions.check_element_exist(driver, By.XPATH, target_xpath_1):")
                         lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, target_xpath_1, \"{value}\", base.steps_count,\"{description}\")")
-
                         lines.append(f"            elif Interactions.check_element_exist(driver, By.XPATH, target_xpath_2):")
                         lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, target_xpath_2, \"{value}\", base.steps_count,\"{description}\")")
- 
                         lines.append(f"            else:")
                         lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                     else:
@@ -576,19 +573,19 @@ def generate_selenium_script(controls):
                         lines.append(f"            #clicking inside grid: {name}")
                         lines.append(f"            if(Interactions.check_element_exist(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH,\"{'('+xpath[0] +')[1]'}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\", \"{value}\", base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[0] +')[1]'}\", data['{label}/{name}'], base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH,\"{'('+xpath[1] +')[1]'}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\", \"{value}\", base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{'('+xpath[1] +')[1]'}\", data['{label}/{name}'], base.steps_count,\"{description}\")")
                         lines.append(f"            else:")
-                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
+                        lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\", \"Send Keys\")")
                         lines.append(f"        else:")
                         lines.append(f"            if(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[0]}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH,\"{xpath[0]}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[0]}\", \"{value}\", base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[0]}\", data['{label}/{name}'], base.steps_count,\"{description}\")")
                         lines.append(f"            elif(Interactions.check_element_exist(driver, By.XPATH, \"{xpath[1]}\")):")
                         lines.append(f"                actions.move_to_element(driver.find_element(By.XPATH,\"{xpath[1]}\")).perform()")
-                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[1]}\", \"{value}\", base.steps_count,\"{description}\")")
+                        lines.append(f"                Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath[1]}\", data['{label}/{name}'], base.steps_count,\"{description}\")")
                         lines.append(f"            else:")
                         lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                         lines.append(f"            Interactions.press_enter(driver, By.XPATH, \"//body\")")
@@ -597,7 +594,7 @@ def generate_selenium_script(controls):
                     lines.append(f"        base.steps_count +=1")
                     lines.append(f"# Inputting into: {name}")
                     lines.append(f"        if(Interactions.check_element_exist(driver, By.XPATH, \"{xpath}\")):")
-                    lines.append(f"            Interactions.wait_and_send_keys(driver, By.XPATH, \"{xpath}\", \"{value}\", base.steps_count,\"{description}\")")
+                    lines.append(f"            Interactions.wait_and_send_keys(driver, By.XPATH, \"{xpath}\", data['{label}/{name}'], base.steps_count,\"{description}\")")
                     lines.append(f"        else:")
                     lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                 elif ctype == "checkbox":
@@ -627,7 +624,7 @@ def generate_selenium_script(controls):
                         lines.append(f"            if Interactions.check_if_checkbox_is_checked(driver, By.XPATH, \"{xpath[2]}\", {value}) == False:")
                         lines.append(f"                Interactions.wait_and_click(driver, By.XPATH, \"{xpath[2]}\", base.steps_count,\"{description}\")")
                         lines.append(f"        else:")
-                        lines.append(f"            Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
+                        lines.append(f"             Interactions.fail_test_case(base.steps_count,\"{description}\",\"Send Keys\")")
                 elif ctype == "combobox":
                     lines.append(f"        base.steps_count +=1")
                     lines.append(f"# Clicking combobox: {name}")
@@ -653,7 +650,7 @@ def generate_selenium_script(controls):
                     lines.append(f"                if cliked_or_not == False:")
                     lines.append(f"                    Interactions.scroll_and_click_dropdown_item(driver, \"{xpath[5]}\",By.XPATH, \"{xpath[4]}\", base.steps_count,\"{description}\")")
                     lines.append(f"            else:")
-                    lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\",\"Click\")")
+                    lines.append(f"                Interactions.fail_test_case(base.steps_count,\"{description}\", \"Click\")")
                 elif ctype == "appbartab":
                     lines.append(f"        base.steps_count +=1")
                     lines.append(f"# Clicking (default) on: {name}")
@@ -663,7 +660,7 @@ def generate_selenium_script(controls):
                     value = ""
                     lines.append(f"        base.steps_count +=1")
                     lines.append(f"# Inputting into: {name}")
-                    lines.append(f"        Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath}\", \"{value}\", base.steps_count,\"{description}\")")
+                    lines.append(f"        Interactions.clear_input_field_and_send_keys(driver, By.XPATH, \"{xpath}\", data['{label}/{name}'], base.steps_count,\"{description}\")")
                 elif ctype == "anchorbutton":
                     lines.append(f"        base.steps_count +=1")
                     lines.append(f"# Clicking (default) on: {name}")
@@ -732,10 +729,7 @@ def generate_selenium_script(controls):
                         lines.append(f"        else:")
                         lines.append(f"            Interactions.wait_and_send_keys(driver, By.XPATH, input_field, new_val)")
                         lines.append(f"        Interactions.wait_and_click(driver, By.XPATH, apply_button, base.steps_count,\"{filtered_description}\")") 
-                elif ctype == "grid":
-                    
-                    # print(previous_user_action_value)
-                    # print(previous_control_type)   
+                elif ctype == "grid": 
                     container = "//div[contains(@class,'fixedDataTableRowLayout_')]/ancestor::div[@role='grid']"
                     previous_desc = f"In the {previous_control_label} field, enter or select a value."
                     match_desc = description.strip()
@@ -785,8 +779,8 @@ def generate_selenium_script(controls):
                             lines.append(f"             Interactions.wait_and_click(driver, By.XPATH, f\"//input[@value='{quickFilterValue}']\", base.steps_count,\"{description}\")")
                             lines.append(f"        Interactions.press_enter(driver, By.XPATH, \"//input[@value='{quickFilterValue}']\")")
                         elif previous_control_type == "referencegroup":
-                            lines.append(f"        base.steps_count +=1")
                             lines.append(f"# Clicking button: {name}")
+                            lines.append(f"        base.steps_count +=1")
                             lines.append(f"        user_input = input(\"Press data to select: \")")
                             lines.append(f"        Interactions.scroll_and_click_row(driver, By.XPATH, \"{container}\", f\"//input[@value='{{user_input}}']/ancestor::div[@class='fixedDataTableRowLayout_body']\", base.steps_count,\"{description}\")")
                             lines.append(f"        Interactions.press_enter(driver, By.XPATH, \"//input[@value='\"+user_input+\"']\")")
@@ -846,11 +840,14 @@ def generate_selenium_script(controls):
     lines.append("            print(\"❌ Test case failed\")")
     lines.append("            Interactions.take_screenshot_on_failure(driver)")
     lines.append("            recorder.stop_and_discard()")
+    # lines.append("        Interactions.log_interaction(base.steps_count, 'Step failed during execution', 'Failure captured', '', 'Failed')")
     lines.append("        driver.quit()")
     return "\n".join(lines)
-def getScript(xml_path):
+def getDataDrivenScript(xml_path, excel_sheet_name):
     tree = ET.parse(xml_path)
     root = tree.getroot()
     controls = extract_controls_with_types(root)
-    selenium_code = generate_selenium_script(controls)
+    selenium_code = generate_selenium_script(controls,excel_sheet_name)
     return selenium_code
+
+print(f"✅ Selenium script generated")

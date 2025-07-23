@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Recording xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Client.ServerForm.TaskRecording">
+  <CanonicalId>73ee829e-33f9-45dc-86fd-569e308c2767</CanonicalId>
+  <CurrentSequence>15</CurrentSequence>
+  <Description></Description>
+  <FormContexts xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>3_PurchTable_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName>PurchTable</ConfigurationOwnerName>
+            <ConfigurationScope>41</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>1</FormViewOptionType>
+            <MenuItemLabel>All purchase orders</MenuItemLabel>
+            <MenuItemName>PurchTableListPage</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>3_PurchTable_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</FormID>
+        <FormName>PurchTable</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>PurchTable</RecordingName>
+        <Sequence>1</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+  </FormContexts>
+  <Name>validate_2</Name>
+  <RootScope z:Id="i1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+    <CustomDescription i:nil="true" />
+    <Description i:nil="true" />
+    <Id>0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</Id>
+    <Parent i:nil="true" />
+    <ParentSequence>0</ParentSequence>
+    <ScreenshotUri i:nil="true" />
+    <Sequence>0</Sequence>
+    <Children>
+      <Node z:Id="i2" i:type="Scope">
+        <CustomDescription i:nil="true" />
+        <Description></Description>
+        <Id>3_PurchTable_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>2</Sequence>
+        <Children>
+          <Node z:Id="i3" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>1530Value_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</Id>
+            <Parent z:Ref="i2" />
+            <ParentSequence>3</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>4</Sequence>
+            <Children>
+              <Node z:Id="i4" i:type="PropertyUserAction">
+                <CustomDescription i:nil="true" />
+                <Description>Validate that the value for Purchase order is '000039 : 1001 - A. Dantum Brasil Ltda'.</Description>
+                <Id>1530Value_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774x5</Id>
+                <Parent z:Ref="i3" />
+                <ParentSequence>4</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>5</Sequence>
+                <Annotations />
+                <GlobalId>eb9656b0-02e9-4a90-842d-0107d9e93444</GlobalId>
+                <SystemGenerated>false</SystemGenerated>
+                <ControlLabel>Purchase order</ControlLabel>
+                <ControlLabelId>@SYS15812</ControlLabelId>
+                <FormId>3_PurchTable_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</FormId>
+                <ListContext i:nil="true" />
+                <RowIndex i:nil="true" />
+                <BoundDataSource i:nil="true" />
+                <BoundProperty i:nil="true" />
+                <ControlName>HeaderTitle</ControlName>
+                <ControlType>Input</ControlType>
+                <IsReference>false</IsReference>
+                <LabelId i:nil="true" />
+                <PropertyName>Value</PropertyName>
+                <UserActionType>Validation</UserActionType>
+                <Value>000039 : 1001 - A. Dantum Brasil Ltda</Value>
+                <ValueLabel i:nil="true" />
+              </Node>
+            </Children>
+            <IsForm>false</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>HeaderTitle_Value</Name>
+            <ScopeType>Private</ScopeType>
+          </Node>
+          <Node z:Id="i5" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>1567MarkActiveRow_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</Id>
+            <Parent z:Ref="i2" />
+            <ParentSequence>6</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>7</Sequence>
+            <Children>
+              <Node z:Id="i6" i:type="CommandUserAction">
+                <CustomDescription i:nil="true" />
+                <Description>In the list, mark the selected row.</Description>
+                <Id>1567MarkActiveRow_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774x8</Id>
+                <Parent z:Ref="i5" />
+                <ParentSequence>7</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>8</Sequence>
+                <Annotations />
+                <GlobalId>3261b2bc-3647-4198-af53-e639364ebb05</GlobalId>
+                <SystemGenerated>false</SystemGenerated>
+                <ControlLabel></ControlLabel>
+                <ControlLabelId></ControlLabelId>
+                <FormId>3_PurchTable_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</FormId>
+                <ListContext>LineSpec</ListContext>
+                <RowIndex i:nil="true" />
+                <Arguments />
+                <CommandName>MarkActiveRow</CommandName>
+                <ControlName>LineSpec</ControlName>
+                <ControlType>Grid</ControlType>
+                <LabelId></LabelId>
+                <ReturnType>Void</ReturnType>
+                <ReturnValue i:nil="true" />
+                <TaskId i:nil="true" />
+              </Node>
+            </Children>
+            <IsForm>false</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>LineSpec_MarkActiveRow</Name>
+            <ScopeType>Private</ScopeType>
+          </Node>
+          <Node z:Id="i7" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>1573Value_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</Id>
+            <Parent z:Ref="i2" />
+            <ParentSequence>13</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>14</Sequence>
+            <Children>
+              <Node z:Id="i8" i:type="PropertyUserAction">
+                <CustomDescription i:nil="true" />
+                <Description>Validate that the value for Item number is 'M0007'.</Description>
+                <Id>1573Value_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774x15</Id>
+                <Parent z:Ref="i7" />
+                <ParentSequence>14</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>15</Sequence>
+                <Annotations />
+                <GlobalId>d034d011-3aed-475e-9639-3e58c317ea72</GlobalId>
+                <SystemGenerated>false</SystemGenerated>
+                <ControlLabel>Item number</ControlLabel>
+                <ControlLabelId>@SYS12836</ControlLabelId>
+                <FormId>3_PurchTable_0ae0374a-c1a9-47a7-b6e8-794ad0f5e774</FormId>
+                <ListContext i:nil="true" />
+                <RowIndex i:nil="true" />
+                <BoundDataSource i:nil="true" />
+                <BoundProperty i:nil="true" />
+                <ControlName>PurchLine_ItemId</ControlName>
+                <ControlType>Input</ControlType>
+                <IsReference>false</IsReference>
+                <LabelId i:nil="true" />
+                <PropertyName>Value</PropertyName>
+                <UserActionType>Validation</UserActionType>
+                <Value>M0007</Value>
+                <ValueLabel i:nil="true" />
+              </Node>
+            </Children>
+            <IsForm>false</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>PurchLine_ItemId_Value</Name>
+            <ScopeType>Private</ScopeType>
+          </Node>
+        </Children>
+        <IsForm>true</IsForm>
+        <IsStepGroup>false</IsStepGroup>
+        <Name>PurchTable</Name>
+        <ScopeType>Public</ScopeType>
+      </Node>
+    </Children>
+    <IsForm>false</IsForm>
+    <IsStepGroup>false</IsStepGroup>
+    <Name>validate_2</Name>
+    <ScopeType>Public</ScopeType>
+  </RootScope>
+  <UserActions xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <d2p1:anyType z:Ref="i4" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i6" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i8" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+  </UserActions>
+  <Version>1</Version>
+</Recording>

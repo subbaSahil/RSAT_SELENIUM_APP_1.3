@@ -188,15 +188,16 @@ def wait_and_click(driver, by, base_xpath, step_num = "",description="",timeout=
                     )
                     driver.execute_script("arguments[0].click();", fallback_element)
                     if(description!="" and step_num != ""):
-                        log_interaction(step_num, "Click (fallback)", description)
+                        log_interaction(step_num, base_xpath, description)
                     return True
                 except Exception as ex:
                     print(f"❌ Attempt {i} failed for xpath: {indexed_xpath} - {str(ex)}")
         
         print(f"❌ All attempts failed for base_xpath: {base_xpath}")
         take_screenshot_on_failure(driver)
+        log_interaction(step_num, base_xpath, description, "","failed")
         last_failed_xpath = base_xpath
-        return False
+        raise AssertionError(f"[{step_num}] Click failed on element: {description or base_xpath}")
         
 def hover_on_an_element(driver, by, value, timeout=10):
     element = WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
@@ -233,10 +234,11 @@ def wait_and_send_keys(driver, by, value, keys, step_num = "" ,description="",ti
         element.click()
         element.send_keys(keys)
         if(description != "" and step_num != ""):
-            log_interaction(step_num, "Send Keys", description, keys, "Pass")
+            log_interaction(step_num, value, description, keys, "Pass")
         time.sleep(1)
     except Exception as e:
         last_failed_xpath = value
+        log_interaction(step_num, value, description, keys, "Failed")
         print(f"❌ Error in wait_and_send_keys at XPath: {value} - {str(e)}")
         take_screenshot_on_failure(driver)
 
@@ -265,22 +267,6 @@ def checkInputExpanded(driver, by, value, timeout=10):
                 return True
     except:
         return False
-
-# def clear_input_field_and_send_keys(driver, by, value, keys, timeout=20):
-#     try:
-#         # Wait for the element to be clickable and store it
-#         element = WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
-#         time.sleep(0.5)  # Short buffer time before interaction
-#         element.click()
-#         element.send_keys(Keys.CONTROL + "a")
-#         element.send_keys(Keys.DELETE)
-#         element.send_keys(keys)
-#         time.sleep(1)  # Give the page time to register input
-
-#     except Exception as e:
-#         print(f"Error in clear_input_field_and_send_keys: {e}")
-
-
 def clear_input_field_and_send_keys(driver, by, value, keys, step_num="",description="",timeout=20):
     global last_failed_xpath
     try:
@@ -291,13 +277,12 @@ def clear_input_field_and_send_keys(driver, by, value, keys, step_num="",descrip
         element.send_keys(Keys.DELETE)
         element.send_keys(keys)
         if(description != "" and step_num != ""):
-            log_interaction(step_num, "Send Keys", description, keys, "Pass")
-        # base_test.steps_count += 1
-        # print(f"✅ Successfully entered text at XPath: {value}")
+            log_interaction(step_num, value, description, keys, "Pass")
         time.sleep(1)  # Give the page time to register input
 
     except Exception as e:
         last_failed_xpath = value
+        log_interaction(step_num, value, description, keys, "Failed")
         print(f"❌ Error in clear_input_field_and_send_keys at XPath: {value} - {str(e)}")
         take_screenshot_on_failure(driver)
 
@@ -379,18 +364,6 @@ def extract_value_and_operator_from_description(description):
     else:
         return None, None
     
-
-# def extract_multiple_values(description):
-#     description = normalize_description_quotes(description)
-#     pattern = r"Enter a filter value of '(.+)' on the '(.+)' field using the '(.+)' filter operator."
-#     match = re.match(pattern, description)
-#     if match:
-#         value = match.group(1)
-#         values_list = [v.strip() for v in value.split('/')]
-#         return values_list
-#     else:
-#         return None
-    
 def extract_multiple_values(value_string):
     return [v.strip() for v in value_string.split('/')]
 
@@ -443,7 +416,7 @@ def extract_quickfilter_value(description):
     return None
 
 
-def scroll_and_click_row(driver, by, container_xpath, target_xpath, timeout=10, max_scrolls=1000):
+def scroll_and_click_row(driver, by, container_xpath, target_xpath,step_num = "",description="", timeout=10, max_scrolls=1000):
     time.sleep(2)
     # Try multiple container elements (if indexed)
     for i in range(1, 10):
@@ -468,7 +441,7 @@ def scroll_and_click_row(driver, by, container_xpath, target_xpath, timeout=10, 
 
                 for _ in range(max_scrolls):
                     try:
-                        wait_and_click(driver, by, target_xpath)
+                        wait_and_click(driver, by, target_xpath, step_num, description)
                         print(f"Clicked element: {target_xpath}")
                         return
                     except TimeoutException:
@@ -679,50 +652,7 @@ def get_element_attribute_value(driver, by, xpath, timeout=10):
         return element.get_attribute("value")
     except TimeoutException:
         return None
-
-
-# def take_screenshot(driver, name="screenshot"):
-#     """
-#     Takes a screenshot and saves it with a timestamp.
- 
-#     Args:
-#         driver: Selenium WebDriver instance.
-#         name: A name for the screenshot to be included in the filename.
-#     """
-#     try:
-#         if not os.path.exists("screenshots"):
-#             os.makedirs("screenshots")
-#         timestamp = time.strftime("%Y%m%d_%H%M%S")
-#         screenshot_name = f"{name}_{timestamp}.png"
-#         screenshot_path = os.path.join("screenshots", screenshot_name)
-#         driver.save_screenshot(screenshot_path)
-#         print(f"Screenshot saved as {screenshot_path}")
-#     except Exception as e:
-#         print(f"Failed to take screenshot: {e}")
- 
-# def take_screenshot_on_pass(driver, test_name="test"):
-#     """
-#     Takes a screenshot on pass by calling the generic screenshot function.
- 
-#     Args:
-#         driver: Selenium WebDriver instance.
-#         test_name: A name for the test to be included in the filename.
-#     """
-#     take_screenshot(driver, f"passed_{test_name}")
-
-# def take_screenshot_on_failure(driver, label="failure"):
-#     timestamp = time.strftime("%Y%m%d-%H%M%S")
-#     filename = f"screenshots/{label}_{timestamp}.png"
-#     try:
-#         driver.save_screenshot(filename)
-#         print(f"📸 Screenshot taken: {filename}")
-#     except Exception as e:
-#         print(f"⚠️ Failed to take screenshot: {str(e)}")
- 
-
-
 import inspect
-
 def get_script_name():
     """
     Inspects the call stack to return the actual test script file name that initiated execution.
@@ -733,7 +663,6 @@ def get_script_name():
         if filename.endswith(".py") and "site-packages" not in filename and "pytest" not in filename and "runpy" not in filename:
             return os.path.splitext(os.path.basename(filename))[0]
     return "unknown_script"
-
 def take_screenshot(driver, name="screenshot", folder="screenshots"):
     """
     Takes a screenshot and saves it with a timestamp under the given folder.
@@ -766,10 +695,6 @@ def take_screenshot_on_failure(driver):
     """
     script_name = get_script_name()
     take_screenshot(driver, name=script_name, folder="reports/screens")
-
-
-
-
 def assert_navigation(driver,step_num="", *expected_items ):
     navigation_xpath = "//ol[@class='navigationBar-crumbList']//li"
     WebDriverWait(driver, 10).until(
@@ -800,9 +725,6 @@ def assert_navigation(driver,step_num="", *expected_items ):
     desc = " > ".join(expected_path)
     log_interaction(step_num, "Navigate", desc,"", "Pass")
     print("Navigation verified successfully.")
- 
- 
- 
 def click_nav(driver, by, base_xpath, timeout=10):
     global last_failed_xpath
     try:
@@ -824,13 +746,8 @@ def click_nav(driver, by, base_xpath, timeout=10):
         take_screenshot_on_failure(driver)
         return False
  
-# def validation(label,value,step_num="",description=""):
-#     if value in description:
-#         log_interaction(step_num, "Validation", label, value, "Pass")
-#     elif value == "true" and "enabled" in description:
-#         log_interaction(step_num, "Validation", label, value, "Pass")
-#     elif value== "false" and "read" in description:
-#         log_interaction(step_num, "Validation", label, value, "Pass")
-#     else:
-#         log_interaction(step_num, "Validation", label, value, "failed")
-    
+def fail_test_case( step_num = "",description="", action = ""):
+    log_interaction(step_num, action, description,"", "Fail")
+    # Fail the test
+    raise AssertionError(f"Test failed: {description}")
+ 

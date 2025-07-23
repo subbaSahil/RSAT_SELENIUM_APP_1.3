@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Recording xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Client.ServerForm.TaskRecording">
+  <CanonicalId>86e56033-28fd-431e-96d0-7ceb3d6404c7</CanonicalId>
+  <CurrentSequence>25</CurrentSequence>
+  <Description></Description>
+  <FormContexts xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>447_EcoResProductListPage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName>EcoResProductListPage</ConfigurationOwnerName>
+            <ConfigurationScope>10</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>0</FormViewOptionType>
+            <MenuItemLabel>All products and product masters</MenuItemLabel>
+            <MenuItemName>EcoResProductListPage</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>447_EcoResProductListPage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormID>
+        <FormName>EcoResProductListPage</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>EcoResProductListPage</RecordingName>
+        <Sequence>4</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>4128_EcoResProductDetails_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName>EcoResProductDetails</ConfigurationOwnerName>
+            <ConfigurationScope>41</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>1</FormViewOptionType>
+            <MenuItemLabel>Product details</MenuItemLabel>
+            <MenuItemName>EcoResProductDetails</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>4128_EcoResProductDetails_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormID>
+        <FormName>EcoResProductDetails</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>EcoResProductDetails</RecordingName>
+        <Sequence>16</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+  </FormContexts>
+  <Name>Validation for RSAT</Name>
+  <RootScope z:Id="i1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+    <CustomDescription i:nil="true" />
+    <Description i:nil="true" />
+    <Id>4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+    <Parent i:nil="true" />
+    <ParentSequence>0</ParentSequence>
+    <ScreenshotUri i:nil="true" />
+    <Sequence>0</Sequence>
+    <Children>
+      <Node z:Id="i2" i:type="Scope">
+        <CustomDescription i:nil="true" />
+        <Description></Description>
+        <Id>MenuItemecoresproductlistpage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>1</Sequence>
+        <Children>
+          <Node z:Id="i3" i:type="MenuItemUserAction">
+            <CustomDescription i:nil="true" />
+            <Description>Go to Product information management &gt; Products &gt; All products and product masters.</Description>
+            <Id>MenuItemecoresproductlistpage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9x2</Id>
+            <Parent z:Ref="i2" />
+            <ParentSequence>1</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>2</Sequence>
+            <Annotations />
+            <GlobalId>cca5f607-dda1-417f-9a93-b491f74b55c0</GlobalId>
+            <SystemGenerated>false</SystemGenerated>
+            <MenuItemName>ecoresproductlistpage</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <NavigationPath xmlns:d7p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+              <d7p1:string>mainmenu</d7p1:string>
+              <d7p1:string>ProductInformationManagement</d7p1:string>
+              <d7p1:string>Products</d7p1:string>
+            </NavigationPath>
+          </Node>
+          <Node z:Id="i4" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>447_EcoResProductListPage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+            <Parent z:Ref="i2" />
+            <ParentSequence>1</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>3</Sequence>
+            <Children>
+              <Node z:Id="i5" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>QuickFilterControl_ApplyFilterForTaskRecorder_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+                <Parent z:Ref="i4" />
+                <ParentSequence>6</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>7</Sequence>
+                <Children>
+                  <Node z:Id="i6" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Use the Quick Filter to find records. For example, filter on the Product number field with a value of '0007'.</Description>
+                    <Id>QuickFilterControl_ApplyFilterForTaskRecorder_4271d65f-c3f3-4392-a3ae-4337c9ba30c9x8</Id>
+                    <Parent z:Ref="i5" />
+                    <ParentSequence>7</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>8</Sequence>
+                    <Annotations />
+                    <GlobalId>ddd323ec-8cab-4315-baf9-ac21ace18be8</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel></ControlLabel>
+                    <ControlLabelId></ControlLabelId>
+                    <FormId>447_EcoResProductListPage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments>
+                      <CommandArgument>
+                        <IsReference>false</IsReference>
+                        <Value>Product number</Value>
+                      </CommandArgument>
+                      <CommandArgument>
+                        <IsReference>false</IsReference>
+                        <Value>0007</Value>
+                      </CommandArgument>
+                      <CommandArgument>
+                        <IsReference>false</IsReference>
+                        <Value>{"FieldName":"Identification_DisplayProductNumber","ReferenceUserActionSequenceId":"","Value":"0007","Version":3}</Value>
+                      </CommandArgument>
+                      <CommandArgument>
+                        <IsReference>false</IsReference>
+                        <Value>2</Value>
+                      </CommandArgument>
+                    </Arguments>
+                    <CommandName>ApplyFilterForTaskRecorder</CommandName>
+                    <ControlName>QuickFilterControl</ControlName>
+                    <ControlType>QuickFilter</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue></ReturnValue>
+                    <TaskId i:nil="true" />
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>QuickFilterControl_ApplyFilterForTaskRecorder</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i7" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>970Value_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+                <Parent z:Ref="i4" />
+                <ParentSequence>9</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>10</Sequence>
+                <Children>
+                  <Node z:Id="i8" i:type="PropertyUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Validate that the value for Product number is '0007'.</Description>
+                    <Id>970Value_4271d65f-c3f3-4392-a3ae-4337c9ba30c9x11</Id>
+                    <Parent z:Ref="i7" />
+                    <ParentSequence>10</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>11</Sequence>
+                    <Annotations />
+                    <GlobalId>9f8e0d98-04d7-4839-802a-bc1e28f99710</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Product number</ControlLabel>
+                    <ControlLabelId>@SYS133863</ControlLabelId>
+                    <FormId>447_EcoResProductListPage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <BoundDataSource i:nil="true" />
+                    <BoundProperty i:nil="true" />
+                    <ControlName>Identification_DisplayProductNumber</ControlName>
+                    <ControlType>Input</ControlType>
+                    <IsReference>false</IsReference>
+                    <LabelId i:nil="true" />
+                    <PropertyName>Value</PropertyName>
+                    <UserActionType>Validation</UserActionType>
+                    <Value></Value>
+                    <ValueLabel i:nil="true" />
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>Identification_DisplayProductNumber_Value</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i9" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>923NavigationAction_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+                <Parent z:Ref="i4" />
+                <ParentSequence>12</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>13</Sequence>
+                <Children>
+                  <Node z:Id="i10" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>In the list, click the link in the selected row.</Description>
+                    <Id>923NavigationAction_4271d65f-c3f3-4392-a3ae-4337c9ba30c9x14</Id>
+                    <Parent z:Ref="i9" />
+                    <ParentSequence>13</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>14</Sequence>
+                    <Annotations />
+                    <GlobalId>c84aade5-d151-46ef-86bb-4ceaa8331d54</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel></ControlLabel>
+                    <ControlLabelId></ControlLabelId>
+                    <FormId>447_EcoResProductListPage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormId>
+                    <ListContext>ListPageGrid</ListContext>
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>NavigationAction</CommandName>
+                    <ControlName>ListPageGrid</ControlName>
+                    <ControlType>Grid</ControlType>
+                    <LabelId></LabelId>
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId i:nil="true" />
+                  </Node>
+                  <Node z:Id="i11" i:type="Scope">
+                    <CustomDescription i:nil="true" />
+                    <Description></Description>
+                    <Id>4128_EcoResProductDetails_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+                    <Parent z:Ref="i9" />
+                    <ParentSequence>13</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>15</Sequence>
+                    <Children>
+                      <Node z:Id="i12" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>4299Value_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+                        <Parent z:Ref="i11" />
+                        <ParentSequence>17</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>18</Sequence>
+                        <Children>
+                          <Node z:Id="i13" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Validate that the value for Title is '0007 : Full Finger BMX Gloves'.</Description>
+                            <Id>4299Value_4271d65f-c3f3-4392-a3ae-4337c9ba30c9x19</Id>
+                            <Parent z:Ref="i12" />
+                            <ParentSequence>18</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>19</Sequence>
+                            <Annotations />
+                            <GlobalId>81c39bca-036c-417e-b6cc-3987cdd97e89</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Title</ControlLabel>
+                            <ControlLabelId>@SYS53388</ControlLabelId>
+                            <FormId>4128_EcoResProductDetails_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource i:nil="true" />
+                            <BoundProperty i:nil="true" />
+                            <ControlName>StringTitle</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Validation</UserActionType>
+                            <Value></Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>StringTitle_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i14" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>4128RequestClose_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+                        <Parent z:Ref="i11" />
+                        <ParentSequence>15</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>20</Sequence>
+                        <Children>
+                          <Node z:Id="i15" i:type="CommandUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Close the page.</Description>
+                            <Id>4128RequestClose_4271d65f-c3f3-4392-a3ae-4337c9ba30c9x21</Id>
+                            <Parent z:Ref="i14" />
+                            <ParentSequence>20</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>21</Sequence>
+                            <Annotations />
+                            <GlobalId>93841bae-9a05-49db-bddf-6d1ced430468</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel></ControlLabel>
+                            <ControlLabelId></ControlLabelId>
+                            <FormId>4128_EcoResProductDetails_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <Arguments />
+                            <CommandName>RequestClose</CommandName>
+                            <ControlName></ControlName>
+                            <ControlType></ControlType>
+                            <LabelId>@SysTaskRecorder:CloseForm</LabelId>
+                            <ReturnType>Void</ReturnType>
+                            <ReturnValue i:nil="true" />
+                            <TaskId i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>RequestClose</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                    </Children>
+                    <IsForm>true</IsForm>
+                    <IsStepGroup>false</IsStepGroup>
+                    <Name>EcoResProductDetails</Name>
+                    <ScopeType>Public</ScopeType>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>ListPageGrid_NavigationAction</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i16" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>447RequestClose_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</Id>
+                <Parent z:Ref="i4" />
+                <ParentSequence>3</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>22</Sequence>
+                <Children>
+                  <Node z:Id="i17" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Close the page.</Description>
+                    <Id>447RequestClose_4271d65f-c3f3-4392-a3ae-4337c9ba30c9x23</Id>
+                    <Parent z:Ref="i16" />
+                    <ParentSequence>22</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>23</Sequence>
+                    <Annotations />
+                    <GlobalId>f4f11f20-c529-489a-a8a9-0547bf72a2e3</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel></ControlLabel>
+                    <ControlLabelId></ControlLabelId>
+                    <FormId>447_EcoResProductListPage_4271d65f-c3f3-4392-a3ae-4337c9ba30c9</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>RequestClose</CommandName>
+                    <ControlName></ControlName>
+                    <ControlType></ControlType>
+                    <LabelId>@SysTaskRecorder:CloseForm</LabelId>
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId i:nil="true" />
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>RequestClose</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+            </Children>
+            <IsForm>true</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>EcoResProductListPage</Name>
+            <ScopeType>Public</ScopeType>
+          </Node>
+        </Children>
+        <IsForm>false</IsForm>
+        <IsStepGroup>false</IsStepGroup>
+        <Name>MenuItem_ecoresproductlistpage</Name>
+        <ScopeType>Private</ScopeType>
+      </Node>
+    </Children>
+    <IsForm>false</IsForm>
+    <IsStepGroup>false</IsStepGroup>
+    <Name>Validation for RSAT</Name>
+    <ScopeType>Public</ScopeType>
+  </RootScope>
+  <UserActions xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <d2p1:anyType z:Ref="i3" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i6" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i8" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i10" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i13" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i15" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i17" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+  </UserActions>
+  <Version>1</Version>
+</Recording>
