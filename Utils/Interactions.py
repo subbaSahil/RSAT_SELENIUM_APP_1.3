@@ -750,5 +750,5 @@ def click_nav(driver, by, base_xpath, timeout=10):
 def fail_test_case( step_num = "",description="", action = ""):
     log_interaction(step_num, action, description,"", "Fail")
     # Fail the test
-    raise AssertionError(f"Test failed: {description}")
+    raise NoSuchElementException(f"Test failed : Element not found {description}")
  
